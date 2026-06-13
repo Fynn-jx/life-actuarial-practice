@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>寿险精算刷题</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [["$", "$"], ["\\(", "\\)"]],
+          displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+        },
+        startup: { typeset: false }
+      };
+    </script>
+    <script defer src="./app.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" onload="window.queueMathTypeset?.()"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand">
+          <div>
+            <h1>寿险精算刷题</h1>
+            <p id="subtitle">读取题库中...</p>
+          </div>
+        </div>
+        <div class="topbar-center">
+          <label class="search">
+            <span>搜索</span>
+            <input id="searchInput" type="search" placeholder="题号、章节、公式、关键词" autocomplete="off" />
+            <kbd class="shortcut">⌘ K</kbd>
+          </label>
+        </div>
+        <div class="topbar-right">
+          <div class="summary-strip" id="summaryStrip">
+            <div><strong>0</strong><span>题目</span></div>
+            <div><strong>0</strong><span>掌握</span></div>
+            <div><strong>0</strong><span>模糊</span></div>
+            <div><strong>0</strong><span>收藏</span></div>
+          </div>
+          <div class="topbar-actions" aria-label="界面工具">
+            <button type="button" class="tool-btn" aria-label="显示设置">☼</button>
+            <button type="button" class="tool-btn" aria-label="更多">☰</button>
+          </div>
+        </div>
+      </header>
+
+      <aside class="sidebar">
+        <section class="filter-block">
+          <div class="filter-title">章节</div>
+          <div id="chapterFilters" class="chapter-filter-list"></div>
+        </section>
+      </aside>
+
+      <main class="question-pane">
+        <div class="question-toolbar">
+          <div>
+            <div class="question-kicker" id="questionKicker">第 0 章</div>
+            <h2 id="questionTitle">请选择题目</h2>
+          </div>
+          <button id="favoriteBtn" type="button" class="icon-btn" aria-label="收藏">☆</button>
+        </div>
+
+        <article id="questionBody" class="content-block question-body"></article>
+
+        <div class="practice-actions">
+          <button id="prevBtn" type="button" class="nav-btn">上一题</button>
+          <div class="status-actions" id="statusActions"></div>
+          <button id="nextBtn" type="button" class="nav-btn primary">下一题</button>
+        </div>
+      </main>
+
+      <aside class="solution-pane">
+        <div class="reveal-row" aria-label="解答查看">
+          <button id="revealReasonBtn" type="button" class="reveal-btn" aria-pressed="false">解题思路</button>
+          <button id="revealAnswerBtn" type="button" class="reveal-btn answer" aria-pressed="false">答案</button>
+        </div>
+
+        <article id="solutionContent" class="content-block solution-content"></article>
+      </aside>
+    </div>
+  </body>
+</html>
