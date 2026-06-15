@@ -3,6 +3,8 @@ const APP_BASE_URL = APP_SCRIPT_URL.pathname.endsWith("/web/app.js")
   ? new URL("../", APP_SCRIPT_URL)
   : new URL("./", APP_SCRIPT_URL);
 const DATA_URL = new URL("data/life_actuarial_exercises_ch01_ch05_solutions_deepseek_v4_pro.json", APP_BASE_URL).href;
+const METHOD_CARDS_URL = new URL("data/life_actuarial_method_cards.json", APP_BASE_URL).href;
+const QUESTION_TAGS_URL = new URL("data/life_actuarial_question_tags.json", APP_BASE_URL).href;
 const STORAGE_KEY = "life-actuarial-practice-state-v1";
 
 const els = {
@@ -19,6 +21,7 @@ const els = {
   nextBtn: document.querySelector("#nextBtn"),
   revealReasonBtn: document.querySelector("#revealReasonBtn"),
   revealAnswerBtn: document.querySelector("#revealAnswerBtn"),
+  methodInsight: document.querySelector("#methodInsight"),
   solutionContent: document.querySelector("#solutionContent")
 };
 
@@ -44,6 +47,7 @@ const ui = {
 let questions = [];
 let filteredQuestions = [];
 let practiceState = loadPracticeState();
+let methodLookup = null;
 let mathRetry = 0;
 
 window.queueMathTypeset = () => {
@@ -56,12 +60,16 @@ init();
 async function init() {
   bindEvents();
   try {
-    const response = await fetch(DATA_URL, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-    const payload = await response.json();
+    const [payload, methodPayload, tagPayload] = await Promise.all([
+      fetchJson(DATA_URL),
+      fetchOptionalJson(METHOD_CARDS_URL),
+      fetchOptionalJson(QUESTION_TAGS_URL)
+    ]);
     questions = normalizeQuestions(payload.questions || []);
+    methodLookup = window.MethodUtils?.buildMethodLookup(
+      methodPayload?.method_cards || [],
+      tagPayload?.question_tags || []
+    );
     const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
     ui.selectedId = questions.some((q) => q.id === hashId) ? hashId : questions[0]?.id;
     const initialQuestion = getSelectedQuestion();
@@ -74,6 +82,22 @@ async function init() {
     els.subtitle.textContent = "题库读取失败";
     els.questionBody.innerHTML = `<div class="error-state">无法读取题库 JSON：${escapeHtml(error.message)}</div>`;
     els.solutionContent.innerHTML = `<div class="error-state">请从项目根目录启动本地 HTTP 服务后访问 /web/index.html。</div>`;
+  }
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url, { cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`${response.status} ${response.statusText}`);
+  }
+  return response.json();
+}
+
+async function fetchOptionalJson(url) {
+  try {
+    return await fetchJson(url);
+  } catch {
+    return null;
   }
 }
 
@@ -135,6 +159,7 @@ function renderAll(options = {}) {
   }
   renderLibrary();
   renderQuestion();
+  renderMethodInsight();
   renderStatusActions();
   renderSolution();
   updateSummary();
@@ -247,7 +272,8 @@ function getFilteredQuestions() {
       question.number,
       question.question_latex,
       question.solution?.answer_text,
-      question.solution?.reasoning_text
+      question.solution?.reasoning_text,
+      window.MethodUtils?.collectMethodSearchText(getQuestionMethodBundle(question.id))
     ]
       .filter(Boolean)
       .join(" ")
@@ -317,6 +343,86 @@ function renderStatusActions() {
   });
 
   updateNavButtons();
+}
+
+function renderMethodInsight() {
+  if (!els.methodInsight) return;
+  const question = getSelectedQuestion();
+  if (!question) {
+    els.methodInsight.innerHTML = `
+      <div class="method-empty">
+        <strong>通法未加载</strong>
+        <span>选择一道题后查看对应方法。</span>
+      </div>
+    `;
+    return;
+  }
+
+  const bundle = getQuestionMethodBundle(question.id);
+  if (!bundle) {
+    els.methodInsight.innerHTML = `
+      <div class="method-empty">
+        <strong>暂无通法标签</strong>
+        <span>这道题还没有匹配到方法卡。</span>
+      </div>
+    `;
+    return;
+  }
+
+  const { tag, primary, secondary } = bundle;
+  const cues = firstNonEmptyList(primary.recognition_cues, primary.applies_to);
+  const steps = firstNonEmptyList(tag.key_steps, primary.step_template);
+  const formulas = uniqueValues([...(tag.core_formula_latex || []), ...(primary.key_formulas_latex || [])]).slice(0, 4);
+  const pitfalls = firstNonEmptyList(tag.pitfalls, primary.pitfalls);
+
+  els.methodInsight.innerHTML = `
+    <div class="method-head">
+      <div>
+        <span class="method-eyebrow">${escapeHtml(primary.category || "通性通法")}</span>
+        <h3>${escapeHtml(primary.title || "本题通法")}</h3>
+      </div>
+      <span class="difficulty-badge">难度 ${escapeHtml(tag.difficulty || "-")}</span>
+    </div>
+    ${renderMethodPills(tag.topic_tags)}
+    ${tag.summary ? `<p class="method-summary">${formatInline(escapeHtml(tag.summary))}</p>` : ""}
+    <div class="method-grid">
+      ${renderMethodList("识别信号", cues)}
+      ${renderMethodList("解题步骤", steps)}
+      ${renderMethodList("关键公式", formulas, true)}
+      ${renderMethodList("易错点", pitfalls)}
+    </div>
+    ${
+      secondary.length
+        ? `<div class="related-methods"><span>关联通法</span>${secondary
+            .map((item) => `<strong>${escapeHtml(item.title || item.method_id)}</strong>`)
+            .join("")}</div>`
+        : ""
+    }
+  `;
+  typesetMath();
+}
+
+function renderMethodPills(items = []) {
+  if (!items.length) return "";
+  return `<div class="method-pills">${items.slice(0, 5).map((item) => `<span>${escapeHtml(item)}</span>`).join("")}</div>`;
+}
+
+function renderMethodList(title, items = [], formatMath = false) {
+  const cleanItems = uniqueValues(items).filter(Boolean).slice(0, 4);
+  if (!cleanItems.length) return "";
+  return `
+    <section class="method-mini">
+      <h4>${title}</h4>
+      <ul>
+        ${cleanItems.map((item) => `<li>${formatMath ? renderFormulaInline(item) : escapeHtml(item)}</li>`).join("")}
+      </ul>
+    </section>
+  `;
+}
+
+function renderFormulaInline(value) {
+  const escaped = escapeHtml(value);
+  return window.MethodUtils?.wrapLatexFormula(escaped) || `\\(${escaped}\\)`;
 }
 
 function renderSolution() {
@@ -392,6 +498,10 @@ function getSelectedQuestion() {
   return questions.find((question) => question.id === ui.selectedId) || null;
 }
 
+function getQuestionMethodBundle(id) {
+  return window.MethodUtils?.getQuestionMethodBundle(id, methodLookup) || null;
+}
+
 function getQuestionState(id) {
   return practiceState.byId[id] || {};
 }
@@ -437,6 +547,14 @@ function compactSnippet(text) {
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, 42);
+}
+
+function firstNonEmptyList(...lists) {
+  return lists.find((items) => Array.isArray(items) && items.length) || [];
+}
+
+function uniqueValues(values) {
+  return [...new Set((values || []).filter(Boolean).map((value) => String(value)))];
 }
 
 function renderMarkdown(input) {
@@ -576,7 +694,7 @@ function escapeHtml(value) {
 }
 
 function typesetMath() {
-  const targets = [els.questionBody, els.solutionContent];
+  const targets = [els.questionBody, els.methodInsight, els.solutionContent].filter(Boolean);
   if (window.MathJax?.typesetPromise) {
     mathRetry = 0;
     window.MathJax.typesetClear?.(targets);

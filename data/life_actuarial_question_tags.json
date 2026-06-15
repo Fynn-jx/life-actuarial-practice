@@ -1,0 +1,3465 @@
+{
+  "metadata": {
+    "schema_version": "life_actuarial_methods_v1",
+    "generated_at": "2026-06-15T17:55:12+08:00",
+    "source": "life_actuarial_exercises_ch01_ch05_solutions_deepseek_v4_pro.json",
+    "working_source": "life_actuarial_method_extraction_working.json",
+    "model": "deepseek-ai/DeepSeek-V4-Pro",
+    "synthesis_mode": "chapter",
+    "validation": {
+      "method_count": 91,
+      "question_tag_count": 112,
+      "expected_question_count": 112,
+      "missing_questions": [],
+      "unexpected_questions": [],
+      "duplicate_questions": [],
+      "missing_method_refs": [],
+      "ok": true
+    }
+  },
+  "question_tags": [
+    {
+      "question_id": "life_actuarial_ch01_q001",
+      "primary_method_id": "ch01_g01_conditional_death_probability",
+      "secondary_method_ids": [],
+      "question_type": "条件死亡概率计算",
+      "topic_tags": [
+        "生存函数",
+        "条件概率"
+      ],
+      "core_formula_latex": [
+        "P(a<X\\le b\\mid X>x)=\\frac{F(b)-F(a)}{S(x)}"
+      ],
+      "key_steps": [
+        "识别随机变量 X 为出生时死亡年龄",
+        "写出条件概率表达式",
+        "代入分布函数和生存函数",
+        "化简"
+      ],
+      "pitfalls": [
+        "区分出生时死亡年龄 X 与 x 岁余寿 T(x)",
+        "条件分母是 S(20) 不是 S(40)"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "用条件概率把指定年龄段死亡事件转成分布函数或生存函数差。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q002",
+      "primary_method_id": "ch01_g01_life_distribution_conversion",
+      "secondary_method_ids": [
+        "ch01_g01_conditional_death_probability"
+      ],
+      "question_type": "生存函数与精算符号计算",
+      "topic_tags": [
+        "生存函数",
+        "分布函数",
+        "密度函数",
+        "精算符号"
+      ],
+      "core_formula_latex": [
+        "F(x)=1-s(x)",
+        "f(x)=-s'(x)",
+        "{}_n q_x = \\frac{s(x)-s(x+n)}{s(x)}"
+      ],
+      "key_steps": [
+        "由 s(x) 求 F(x) 和 f(x)",
+        "计算无条件区间概率",
+        "计算条件概率",
+        "代入精算符号定义"
+      ],
+      "pitfalls": [
+        "精算符号中年龄和期限的对应",
+        "连续分布下端点不影响"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "从生存函数出发，推导分布函数和密度函数，并计算各种概率和精算符号。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q003",
+      "primary_method_id": "ch01_g01_future_lifetime_density",
+      "secondary_method_ids": [],
+      "question_type": "未来寿命条件密度计算",
+      "topic_tags": [
+        "条件分布",
+        "未来寿命",
+        "密度函数"
+      ],
+      "core_formula_latex": [
+        "f_T(t)=\\frac{f(x+t)}{S(x)}"
+      ],
+      "key_steps": [
+        "求生存函数 S(x)",
+        "写出条件密度公式",
+        "确定 t 的范围",
+        "化简"
+      ],
+      "pitfalls": [
+        "t 的范围是 0 到极限年龄减 x",
+        "S(x) 必须大于 0"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用条件密度公式，从新生婴儿死亡年龄分布推导 x 岁人的未来寿命分布。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q004",
+      "primary_method_id": "ch01_g01_constant_mortality_survival",
+      "secondary_method_ids": [],
+      "question_type": "恒定死亡率生存概率计算",
+      "topic_tags": [
+        "死亡率",
+        "生存概率",
+        "乘积"
+      ],
+      "core_formula_latex": [
+        "{}_n p_x = \\prod_{k=0}^{n-1} (1-q_{x+k})"
+      ],
+      "key_steps": [
+        "识别所需年龄段的死亡率",
+        "写出乘积公式",
+        "代入数值计算"
+      ],
+      "pitfalls": [
+        "注意下标对应，确保覆盖正确的年龄区间"
+      ],
+      "difficulty": 1,
+      "review_priority": "low",
+      "summary": "利用每年死亡率恒定，连乘得到多年生存概率。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q005",
+      "primary_method_id": "ch01_g01_life_distribution_conversion",
+      "secondary_method_ids": [
+        "ch01_g01_conditional_death_probability"
+      ],
+      "question_type": "生存函数求解与死亡概率计算",
+      "topic_tags": [
+        "生存函数",
+        "死力",
+        "死亡概率"
+      ],
+      "core_formula_latex": [
+        "s(x) = 1 - \\frac{1}{25}x^{2/3}",
+        "\\omega = 125",
+        "\\Pr(x < T_0 \\le x+n) = s(x)-s(x+n)"
+      ],
+      "key_steps": [
+        "由 s'(x) 积分求 s(x)",
+        "利用 s(0)=1 定常数",
+        "由 s(ω)=0 求 ω",
+        "用生存函数差求死亡概率"
+      ],
+      "pitfalls": [
+        "积分常数勿忘",
+        "死亡概率为无条件概率，直接用 s(x)-s(x+n)"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "由 s'(x) 求生存函数及极限年龄，并计算新生儿在指定年龄段的死亡概率。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q006",
+      "primary_method_id": "ch01_g01_life_distribution_conversion",
+      "secondary_method_ids": [],
+      "question_type": "生存函数与其他函数的转换",
+      "topic_tags": [
+        "生存函数",
+        "分布函数",
+        "密度函数",
+        "死力"
+      ],
+      "core_formula_latex": [
+        "F(x)=1-e^{-x}",
+        "f(x)=e^{-x}",
+        "\\mu_x=1"
+      ],
+      "key_steps": [
+        "由 s(x) 得 F(x)=1-s(x)",
+        "求导得 f(x)",
+        "由 μ_x=f(x)/s(x) 得死力"
+      ],
+      "pitfalls": [
+        "定义域 x≥0"
+      ],
+      "difficulty": 1,
+      "review_priority": "low",
+      "summary": "已知指数生存函数，求分布函数、密度函数和死力。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q007",
+      "primary_method_id": "ch01_g01_life_distribution_conversion",
+      "secondary_method_ids": [],
+      "question_type": "由死力求生存函数及其他函数",
+      "topic_tags": [
+        "死力",
+        "生存函数",
+        "分布函数",
+        "密度函数"
+      ],
+      "core_formula_latex": [
+        "s(x)=\\cos x",
+        "F(x)=1-\\cos x",
+        "f(x)=\\sin x"
+      ],
+      "key_steps": [
+        "由 μ_x 积分求 s(x)",
+        "利用 s(0)=1",
+        "由 s(x) 求 F(x) 和 f(x)"
+      ],
+      "pitfalls": [
+        "积分 ∫tan t dt = -ln(cos t)",
+        "定义域 0≤x<π/2"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知死力为 tan x，求生存函数、分布函数和密度函数。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q008",
+      "primary_method_id": "ch01_g02_death_probability_calculation",
+      "secondary_method_ids": [
+        "ch01_g02_basic_life_distribution_conversion"
+      ],
+      "question_type": "死亡概率与死力的计算",
+      "topic_tags": [
+        "死亡概率",
+        "死力",
+        "生存函数"
+      ],
+      "core_formula_latex": [
+        "q_{50} = \\frac{111}{6000}",
+        "\\mu_{50} = \\frac{110}{6000}",
+        "q_{50}-\\mu_{50}=\\frac{1}{6000}"
+      ],
+      "key_steps": [
+        "计算s(50)和s(51)",
+        "求q_{50}=1-s(51)/s(50)",
+        "求s'(x)并计算μ_{50}=-s'(50)/s(50)",
+        "求差"
+      ],
+      "pitfalls": [
+        "q_x与μ_x的区别，q_x是条件死亡概率，μ_x是瞬时死力",
+        "计算时注意化简"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "由生存函数计算50岁的一年死亡概率和死力，并求其差。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q009",
+      "primary_method_id": "ch01_g02_derivative_relationships_mortality",
+      "secondary_method_ids": [],
+      "question_type": "死力与生存函数的导数关系推导",
+      "topic_tags": [
+        "死力",
+        "生存函数",
+        "导数"
+      ],
+      "core_formula_latex": [
+        "\\mu_x = -\\frac{1}{l_x}\\frac{\\mathrm{d}l_x}{\\mathrm{d}x}",
+        "\\frac{\\mathrm{d}}{\\mathrm{d}x}(l_x\\mu_x) = -\\frac{\\mathrm{d}^2 l_x}{\\mathrm{d}x^2}",
+        "\\frac{\\mathrm{d}\\mu_x}{\\mathrm{d}x} = -\\frac{l_x''}{l_x} + \\mu_x^2"
+      ],
+      "key_steps": [
+        "写出死力定义",
+        "对目标表达式求导",
+        "建立导数之间的关系",
+        "利用 l_x > 0 比较符号"
+      ],
+      "pitfalls": [
+        "注意 l_x > 0 保证符号传递",
+        "区分 l_x 的导数与二阶导数"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用死力定义和生存函数导数的关系，推导 d(l_x μ_x)/dx 与 dμ_x/dx 和 μ_x² 的大小关系。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q010",
+      "primary_method_id": "ch01_g02_compute_from_lx",
+      "secondary_method_ids": [],
+      "question_type": "由生存人数函数计算精算函数",
+      "topic_tags": [
+        "生存函数",
+        "死亡概率",
+        "平均余命"
+      ],
+      "core_formula_latex": [
+        "s(x) = \\frac{l_x}{l_0}",
+        "{}_tp_x = \\frac{l_{x+t}}{l_x}",
+        "{}_tq_x = 1 - {}_tp_x",
+        "\\overset{\\circ}{e}_x = \\int_0^{\\infty} {}_tp_x \\, dt"
+      ],
+      "key_steps": [
+        "确定初始人数 l_0",
+        "写出生存函数 s(x)",
+        "写出生存概率 _tp_x 和死亡概率 _tq_x",
+        "积分求完全平均余命，注意积分上限为极限年龄减 x"
+      ],
+      "pitfalls": [
+        "积分上限为 ω - x，不是无穷",
+        "l_x 定义域需明确"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定 l_x 表达式，计算生存函数、生存概率、死亡概率和完全平均余命。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q011",
+      "primary_method_id": "ch01_g02_derivative_relationships_mortality",
+      "secondary_method_ids": [],
+      "question_type": "死力与生存函数的导数关系推导",
+      "topic_tags": [
+        "死力",
+        "生存函数",
+        "导数",
+        "平均余命"
+      ],
+      "core_formula_latex": [
+        "p_x = \\frac{S(x+1)}{S(x)}",
+        "\\mu_x = -\\frac{S'(x)}{S(x)}",
+        "\\overset{\\circ}{e}_x = \\int_0^{\\infty} {}_t p_x \\, dt",
+        "{}_t p_x = \\frac{S(x+t)}{S(x)}"
+      ],
+      "key_steps": [
+        "写出相关函数的定义",
+        "对目标函数求导",
+        "利用死力替换导数比",
+        "化简并利用概率密度积分为 1 等性质"
+      ],
+      "pitfalls": [
+        "积分与求导交换需满足条件（通常连续函数可交换）",
+        "注意余命密度函数 f_T(t) = {}_t p_x \\mu_{x+t} 的积分为 1"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用生存函数和死力的定义，证明 q_x 和完全平均余命对 x 的导数公式。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q012",
+      "primary_method_id": "ch01_g02_compute_from_lx",
+      "secondary_method_ids": [],
+      "question_type": "由生存人数函数计算精算函数",
+      "topic_tags": [
+        "延期死亡概率",
+        "死力",
+        "生存函数"
+      ],
+      "core_formula_latex": [
+        "{}_{n|}q_x = \\frac{l_{x+n} - l_{x+n+1}}{l_x}",
+        "\\mu_x = -\\frac{1}{l_x}\\frac{\\mathrm{d}l_x}{\\mathrm{d}x}"
+      ],
+      "key_steps": [
+        "计算死亡人数 d_x = l_x - l_{x+1}",
+        "代入延期死亡概率公式",
+        "求导得死力",
+        "注明 x 的有效范围"
+      ],
+      "pitfalls": [
+        "延期死亡概率要求 x+n+1 ≤ ω，否则无定义或为 0",
+        "死力在极限年龄处可能趋于无穷"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定线性 l_x，计算延期死亡概率和死力，注意 de Moivre 律下死力形式。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q013",
+      "primary_method_id": "ch01_g02_survival_probability_multiplication",
+      "secondary_method_ids": [],
+      "question_type": "生存概率乘法关系应用",
+      "topic_tags": [
+        "生存函数",
+        "条件概率",
+        "乘法关系"
+      ],
+      "core_formula_latex": [
+        "{}_{n}p_x = {}_{k}p_x \\cdot {}_{n-k}p_{x+k}"
+      ],
+      "key_steps": [
+        "识别已知生存概率对应的年龄和期间",
+        "写出乘法关系式",
+        "解出未知生存概率",
+        "转化为死亡概率"
+      ],
+      "pitfalls": [
+        "注意年龄对应：n = k + (n-k)，且后一段的起始年龄为 x+k"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用生存概率的乘法性质，从已知的较长期间生存概率和较短期间生存概率求出另一段生存概率，再求死亡概率。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q014",
+      "primary_method_id": "ch01_g02_constant_force_mortality",
+      "secondary_method_ids": [],
+      "question_type": "恒定死力下的死亡概率计算",
+      "topic_tags": [
+        "死力",
+        "恒定死力",
+        "延期死亡概率"
+      ],
+      "core_formula_latex": [
+        "{}_t p_x = e^{-\\mu t}",
+        "{}_n q_x = 1 - e^{-\\mu n}",
+        "{}_{m|n} q_x = e^{-\\mu m}(1 - e^{-\\mu n})"
+      ],
+      "key_steps": [
+        "确认死力常数及其适用区间",
+        "写出恒定死力下的生存概率公式",
+        "代入计算 n 年死亡概率",
+        "利用延期概率公式或乘法关系计算 m|n q_x"
+      ],
+      "pitfalls": [
+        "确保所求期间完全落在死力恒定的年龄区间内",
+        "区分 n q_x 与 m|n q_x 的表达式"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "当死力在给定年龄段为常数时，直接用指数形式计算生存概率和各类死亡概率。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q015",
+      "primary_method_id": "ch01_g03_parametric_force_from_survival",
+      "secondary_method_ids": [],
+      "question_type": "参数化死力利用已知生存概率求参数",
+      "topic_tags": [
+        "死力",
+        "参数估计",
+        "生存概率"
+      ],
+      "core_formula_latex": [
+        "{}_t p_x = \\exp\\left(-\\int_0^t \\mu_{x+s}\\,ds\\right)"
+      ],
+      "key_steps": [
+        "写出含参数的生存概率积分表达式",
+        "代入已知的 t p_x 值求出参数",
+        "将参数代入目标概率的积分表达式",
+        "化简或计算数值"
+      ],
+      "pitfalls": [
+        "积分计算要准确，注意死力形式可能为 kx、kx^2 等",
+        "参数可能保留为指数形式，数值计算时注意精度"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "死力表达式含有未知常数时，利用一个已知生存概率值解出常数，再计算其他生存或死亡概率。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q016",
+      "primary_method_id": "ch01_g03_fractional_age_assumptions",
+      "secondary_method_ids": [],
+      "question_type": "分数年龄假设下的函数推导",
+      "topic_tags": [
+        "分数年龄假设",
+        "UDD",
+        "CFM",
+        "Balducci"
+      ],
+      "core_formula_latex": [
+        "\\text{UDD: } {}_t q_x = t q_x,\\ {}_t p_x = 1 - t q_x,\\ \\mu_{x+t} = \\frac{q_x}{1 - t q_x},\\ {}_s q_{x+t} = \\frac{s q_x}{1 - t q_x}",
+        "\\text{CFM: } {}_t p_x = (p_x)^t,\\ \\mu_{x+t} = -\\ln p_x,\\ {}_s q_{x+t} = 1 - (p_x)^s",
+        "\\text{Balducci: } {}_t p_x = \\frac{p_x}{p_x + t q_x},\\ \\mu_{x+t} = \\frac{q_x}{p_x + t q_x},\\ {}_s q_{x+t} = \\frac{s q_x}{p_x + (t+s)q_x}"
+      ],
+      "key_steps": [
+        "明确三种假设的基本出发点",
+        "写出分布函数 F(t) = _t q_x",
+        "写出生存函数 s(t) = _t p_x",
+        "求导得密度函数 f(t)",
+        "计算死力 μ_{x+t} = f(t)/s(t)",
+        "推导条件死亡概率 _s q_{x+t}"
+      ],
+      "pitfalls": [
+        "区分三种假设，不要混淆公式",
+        "Balducci 假设下 _s q_{x+t} 分母为 p_x + (t+s)q_x，注意与 UDD 的区别",
+        "CFM 假设下死力为常数，_s q_{x+t} 与 t 无关"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "在 UDD、CFM、Balducci 三种分数年龄假设下，直接写出 T(x) 的分布函数、密度函数、生存函数、死力及条件死亡概率的表达式。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q017",
+      "primary_method_id": "ch01_g03_fractional_age_assumptions",
+      "secondary_method_ids": [],
+      "question_type": "分数年龄死亡率计算（三种假设）",
+      "topic_tags": [
+        "分数年龄假设",
+        "UDD",
+        "Balducci",
+        "CFM"
+      ],
+      "core_formula_latex": [
+        "{}_s q_{x+t} = \\frac{s \\cdot q_x}{1 - t \\cdot q_x} \\quad (\\text{UDD})",
+        "{}_s q_{x+t} = \\frac{s \\cdot q_x}{1 - (1 - t - s) q_x} \\quad (\\text{Balducci})",
+        "{}_s q_{x+t} = 1 - (1 - q_x)^s \\quad (\\text{CFM})"
+      ],
+      "key_steps": [
+        "识别题目要求的假设类型（UDD/Balducci/CFM）",
+        "确定参数 s 和 t 的值",
+        "代入对应假设的公式计算"
+      ],
+      "pitfalls": [
+        "区分不同假设的公式，尤其是 Balducci 分母中的 (1-t-s) 项",
+        "CFM 下死亡率与已活时长 t 无关，仅取决于区间长度 s",
+        "注意 s 和 t 的取值范围（0≤s≤1-t）"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知整数年龄死亡率 q_x，在 UDD、Balducci 或 CFM 假设下计算分数年龄死亡率，直接套用对应公式。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q018",
+      "primary_method_id": "ch01_g03_derive_from_force_of_mortality",
+      "secondary_method_ids": [],
+      "question_type": "由死力推导生存函数与余寿密度",
+      "topic_tags": [
+        "死力",
+        "Weibull分布",
+        "生存函数",
+        "余寿分布"
+      ],
+      "core_formula_latex": [
+        "s(x) = \\exp\\left(-\\int_0^x \\mu_y\\,dy\\right)",
+        "f_{T(x)}(t) = {}_t p_x \\cdot \\mu_{x+t} = \\frac{s(x+t)}{s(x)} \\mu_{x+t}"
+      ],
+      "key_steps": [
+        "写出死力的具体形式（如 Weibull：μ_x = k x^n）",
+        "积分求生存函数 s(x)",
+        "写出余寿生存函数 t_p_x = s(x+t)/s(x)",
+        "求导或直接相乘得概率密度函数 f(t)"
+      ],
+      "pitfalls": [
+        "Weibull 死力可能有不同参数形式（如 μ_x = αβ x^{β-1}），需按教材约定选用",
+        "注意积分上下限，生存函数定义域可能有限"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知死力 μ_x 的解析形式，通过积分求生存函数，再求剩余寿命 T(x) 的密度函数。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q019",
+      "primary_method_id": "ch01_g03_derive_from_force_of_mortality",
+      "secondary_method_ids": [],
+      "question_type": "由死力求完全平均余命",
+      "topic_tags": [
+        "死力",
+        "完全平均余命",
+        "生存函数"
+      ],
+      "core_formula_latex": [
+        "{}_t p_0 = \\exp\\left(-\\int_0^t \\mu(s)\\,ds\\right)",
+        "\\overset{\\circ}{e}_0 = \\int_0^{\\infty} {}_t p_0\\,dt"
+      ],
+      "key_steps": [
+        "化简死力表达式",
+        "积分求生存函数 t_p_0",
+        "对生存函数积分求完全平均余命，注意积分上限为极限年龄"
+      ],
+      "pitfalls": [
+        "死力表达式可能需要化简（如分式化简）",
+        "积分上限为极限年龄 ω，而非无穷大"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知死力 μ(x)，通过两次积分（先求生存函数，再求平均余命）计算完全平均余命。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q020",
+      "primary_method_id": "ch01_g03_derive_from_survival_function",
+      "secondary_method_ids": [],
+      "question_type": "由生存函数求死力与平均余命",
+      "topic_tags": [
+        "生存函数",
+        "死力",
+        "完全平均余命"
+      ],
+      "core_formula_latex": [
+        "\\mu_x = -\\frac{s'(x)}{s(x)}",
+        "\\overset{\\circ}{e}_x = \\int_0^{\\omega-x} {}_t p_x\\,dt = \\int_0^{\\omega-x} \\frac{s(x+t)}{s(x)}\\,dt"
+      ],
+      "key_steps": [
+        "对生存函数求导",
+        "代入死力公式得 μ_x",
+        "写出余寿生存函数 t_p_x = s(x+t)/s(x)",
+        "积分求完全平均余命，注意上限为 ω-x"
+      ],
+      "pitfalls": [
+        "注意生存函数的定义域，积分上限为极限年龄减去当前年龄",
+        "求导时注意复合函数求导法则"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知生存函数 s(x) 的解析式，通过求导得死力，通过积分得完全平均余命。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q021",
+      "primary_method_id": "ch01_g03_derive_from_force_of_mortality",
+      "secondary_method_ids": [],
+      "question_type": "死力计算生存概率与完全平均余命",
+      "topic_tags": [
+        "死力",
+        "生存函数",
+        "完全平均余命",
+        "积分"
+      ],
+      "core_formula_latex": [
+        "{}_tp_x = \\exp\\left(-\\int_0^t \\mu_{x+s}\\,\\mathrm{d}s\\right)",
+        "\\overset{\\circ}{e}_x = \\int_0^\\infty {}_tp_x\\,\\mathrm{d}t"
+      ],
+      "key_steps": [
+        "由死力积分得生存概率",
+        "计算 _tp_x · μ_{x+t}",
+        "积分生存概率得完全平均余命"
+      ],
+      "pitfalls": [
+        "死力积分变量与上下限",
+        "完全平均余命积分可能涉及高斯积分等特殊函数"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定死力函数，通过积分求生存概率，再积分求完全平均余命。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q022",
+      "primary_method_id": "ch01_g04_select_ultimate_table_missing_value",
+      "secondary_method_ids": [],
+      "question_type": "选择-终极生命表缺失值推算",
+      "topic_tags": [
+        "选择-终极生命表",
+        "期间死亡率",
+        "生存人数"
+      ],
+      "core_formula_latex": [
+        "{}_nq_x = 1 - \\frac{l_{x+n}}{l_x}",
+        "l_{[x]+k} = l_{x+k} \\ (k \\geq \\text{选择期})"
+      ],
+      "key_steps": [
+        "明确选择期长度与符号含义",
+        "写出期间死亡率表达式",
+        "利用给定关系式建立方程",
+        "代入已知数据求解目标变量"
+      ],
+      "pitfalls": [
+        "区分选择表与终极表年龄对应",
+        "期间死亡率下标含义",
+        "选择期结束后生存人数对应终极表年龄"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用选择-终极生命表结构和死亡率关系，建立方程求解缺失的生存人数。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q023",
+      "primary_method_id": "ch01_g04_select_ultimate_table_missing_value",
+      "secondary_method_ids": [],
+      "question_type": "选择-终极生命表缺失值推算",
+      "topic_tags": [
+        "选择-终极生命表",
+        "死亡率关系",
+        "生存人数推算"
+      ],
+      "core_formula_latex": [
+        "l_{[x]+1} = l_{[x]}(1 - q_{[x]})",
+        "l_{x+1} = \\frac{l_{x+2}}{1 - q_{x+1}}"
+      ],
+      "key_steps": [
+        "从已知选择基数计算选择期结束时的终极表人数",
+        "利用终极死亡率反推中间年龄人数",
+        "根据常见假设 l_{[x]} = l_x 得到目标选择基数"
+      ],
+      "pitfalls": [
+        "需明确 l_{[x]} 与 l_x 的关系假设（若无说明，通常假设相等）",
+        "死亡率下标对应年龄",
+        "计算顺序与四舍五入处理"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用选择死亡率与终极死亡率的关系，从已知选择基数推导终极表人数，再反推另一选择年龄的基数。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q024",
+      "primary_method_id": "ch01_g04_udd_expectation_variance_relation",
+      "secondary_method_ids": [],
+      "question_type": "UDD假设下完全余命与取整余命关系证明",
+      "topic_tags": [
+        "死亡均匀分布假设",
+        "完全平均余命",
+        "取整平均余命",
+        "方差"
+      ],
+      "core_formula_latex": [
+        "\\overset{\\circ}{e}_x = e_x + \\frac{1}{2}",
+        "\\operatorname{Var}[T(x)] = \\operatorname{Var}[K(x)] + \\frac{1}{12}"
+      ],
+      "key_steps": [
+        "写出 T(x) = K(x) + S(x)",
+        "利用 UDD 下 S ~ U(0,1) 且与 K 独立",
+        "期望相加得 e̊_x = e_x + 1/2",
+        "方差相加得 Var(T) = Var(K) + 1/12"
+      ],
+      "pitfalls": [
+        "确认 UDD 假设下 S 与 K 的独立性",
+        "均匀分布方差为 1/12"
+      ],
+      "difficulty": 1,
+      "review_priority": "low",
+      "summary": "在死亡均匀分布假设下，利用 T = K + S 及独立性证明期望和方差关系。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch01_q025",
+      "primary_method_id": "ch01_g04_compute_moments_of_tx_from_lx",
+      "secondary_method_ids": [],
+      "question_type": "余命方差计算",
+      "topic_tags": [
+        "生存分布",
+        "余命T(x)",
+        "方差"
+      ],
+      "core_formula_latex": [
+        "s(x)=\\frac{l_x}{l_0}",
+        "S_{T(x)}(t)=\\frac{s(x+t)}{s(x)}",
+        "f_{T(x)}(t)=-\\frac{d}{dt}S_{T(x)}(t)",
+        "\\operatorname{Var}[T(x)]=E[T(x)^2]-(E[T(x)])^2"
+      ],
+      "key_steps": [
+        "由l_x求生存函数s(x)",
+        "写出T(x)的生存函数S_{T(x)}(t)",
+        "求导得密度f_{T(x)}(t)",
+        "积分求一阶矩和二阶矩",
+        "代入方差公式"
+      ],
+      "pitfalls": [
+        "确认极限年龄ω，l_x定义域",
+        "积分区间为0到ω-x",
+        "l_x与s(x)的比例关系"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定生存人数函数l_x，通过生存函数转换得到余命T(x)的分布，再计算其方差。",
+      "chapter": 1
+    },
+    {
+      "question_id": "life_actuarial_ch02_q001",
+      "primary_method_id": "ch02_g01_term_life_net_single_premium",
+      "secondary_method_ids": [
+        "ch02_g01_natural_premium"
+      ],
+      "question_type": "趸缴纯保费与自然保费计算",
+      "topic_tags": [
+        "定期寿险",
+        "趸缴纯保费",
+        "自然保费",
+        "生命表"
+      ],
+      "core_formula_latex": [
+        "A_{x:\\overline{n}|}^{1}=\\sum_{k=0}^{n-1}v^{k+1}\\frac{d_{x+k}}{l_x}",
+        "c_x=v q_x"
+      ],
+      "key_steps": [
+        "确定保险类型和给付时间",
+        "写出趸缴纯保费求和公式",
+        "查生命表代入l_x, d_x",
+        "计算自然保费v q_x并求和",
+        "比较两者差异并解释利息与风险平滑"
+      ],
+      "pitfalls": [
+        "区分死亡年末给付与即时给付",
+        "自然保费是每年单独购买的一年定期寿险趸缴保费",
+        "趸缴纯保费小于自然保费总额的原因"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "利用生命表计算定期寿险趸缴纯保费，以及各年龄自然保费之和，并理解两者差异。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q002",
+      "primary_method_id": "ch02_g01_minimize_variance_of_pvrv",
+      "secondary_method_ids": [],
+      "question_type": "给付现值方差最小化",
+      "topic_tags": [
+        "给付现值随机变量",
+        "方差",
+        "优化"
+      ],
+      "core_formula_latex": [
+        "\\operatorname{Var}(Z)=E[Z^2]-(E[Z])^2"
+      ],
+      "key_steps": [
+        "列出所有可能的死亡时间及对应给付现值",
+        "写出Z的概率分布",
+        "计算E[Z]和E[Z^2]",
+        "得到方差关于决策变量的函数",
+        "求导或利用二次函数性质求最小值"
+      ],
+      "pitfalls": [
+        "确认利率i=0时v=1",
+        "注意保额非负约束",
+        "正确计算生存概率和死亡概率"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "针对离散给付现值随机变量，通过方差表达式求导，找到使方差最小的保额分配。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q003",
+      "primary_method_id": "ch02_g01_insurance_premium_relations",
+      "secondary_method_ids": [],
+      "question_type": "趸缴纯保费关系式求解",
+      "topic_tags": [
+        "终身寿险",
+        "两全保险",
+        "定期寿险",
+        "生存保险",
+        "关系式"
+      ],
+      "core_formula_latex": [
+        "A_x = A_{x:\\overline{n}|}^{1} + {}_nE_x \\cdot A_{x+n}",
+        "A_{x:\\overline{n}|} = A_{x:\\overline{n}|}^{1} + {}_nE_x"
+      ],
+      "key_steps": [
+        "识别已知保费符号含义",
+        "列出终身寿险与定期、生存保险的关系式",
+        "列出两全保险的分解式",
+        "联立方程求解未知保费"
+      ],
+      "pitfalls": [
+        "区分A_{x:\\overline{n}|}^{1}（定期）与A_{x:\\overline{n}|}^{\\ \\ 1}（生存）的符号差异",
+        "注意{}_nE_x = A_{x:\\overline{n}|}^{\\ \\ 1}",
+        "确认教材符号约定"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "利用趸缴纯保费之间的基本关系式，通过解方程组求出定期寿险和生存保险的趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q004",
+      "primary_method_id": "ch02_g01_term_life_net_single_premium",
+      "secondary_method_ids": [],
+      "question_type": "趸缴纯保费计算",
+      "topic_tags": [
+        "生存函数",
+        "趸缴纯保费",
+        "定期死亡保险",
+        "定期生存保险"
+      ],
+      "core_formula_latex": [
+        "A_{x:\\overline{n}|}^{1} = \\sum_{k=0}^{n-1} v^{k+1} {}_{k|}q_x",
+        "A_{x:\\overline{n}|}^{\\ \\ 1} = v^n {}_n p_x"
+      ],
+      "key_steps": [
+        "识别保险类型（死亡/生存）",
+        "写出精算现值求和或折现公式",
+        "用生存函数表示死亡概率或生存概率",
+        "代入l_x计算并化简"
+      ],
+      "pitfalls": [
+        "区分死亡保险与生存保险的符号（上标1位置可能不同）",
+        "注意x未指定时保留为变量，或按题目隐含值代入"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定生存函数和利率，利用精算现值公式计算定期死亡保险和生存保险的趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q005",
+      "primary_method_id": "ch02_g01_natural_premium",
+      "secondary_method_ids": [],
+      "question_type": "自然保费与趸缴纯保费关系证明",
+      "topic_tags": [
+        "自然保费",
+        "趸缴纯保费",
+        "递归关系",
+        "证明"
+      ],
+      "core_formula_latex": [
+        "c_k = v q_k",
+        "A^{1}_{x:\\overline{n}|} = \\sum_{t=0}^{n-1} v^{t+1} {}_{t|}q_x"
+      ],
+      "key_steps": [
+        "明确自然保费定义",
+        "写出趸缴纯保费的求和表达式",
+        "利用递归关系或求和变换将右边展开",
+        "对比左右两边完成证明"
+      ],
+      "pitfalls": [
+        "符号A^{1}_{x:\\overline{n}|}可能表示死亡保险或生存保险，需按教材约定确认",
+        "注意求和指标与年龄对应"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用自然保费定义和趸缴纯保费求和公式，通过递归或求和变换证明等式。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q006",
+      "primary_method_id": "ch02_g01_commutation_sum_identity_proof",
+      "secondary_method_ids": [],
+      "question_type": "换算函数恒等式证明",
+      "topic_tags": [
+        "换算函数",
+        "D_x",
+        "S_x",
+        "M_x",
+        "R_x",
+        "求和恒等式"
+      ],
+      "core_formula_latex": [
+        "D_x = v^x l_x",
+        "N_x = \\sum_{k=0}^{\\infty} D_{x+k}",
+        "S_x = \\sum_{k=0}^{\\infty} N_{x+k}",
+        "C_x = v^{x+1} d_x",
+        "M_x = \\sum_{k=0}^{\\infty} C_{x+k}",
+        "R_x = \\sum_{k=0}^{\\infty} M_{x+k}"
+      ],
+      "key_steps": [
+        "写出换算函数定义",
+        "将左边展开为求和形式",
+        "交换求和次序或利用累积和性质",
+        "化简得到右边表达式"
+      ],
+      "pitfalls": [
+        "注意S_x和M_x的定义可能因教材而异，需确认",
+        "区分N_x（生存年金换算）和M_x（死亡保险换算）"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用换算函数的定义和求和性质，证明含D, N, S, C, M, R的恒等式。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q007",
+      "primary_method_id": "ch02_g01_variable_insurance_commutation_representation",
+      "secondary_method_ids": [],
+      "question_type": "变动保险趸缴纯保费的换算函数表示证明",
+      "topic_tags": [
+        "递减定期寿险",
+        "递增终身寿险",
+        "换算函数",
+        "M_x",
+        "R_x",
+        "D_x"
+      ],
+      "core_formula_latex": [
+        "(DA)^{1}_{x:\\overline{n}|} = \\sum_{k=1}^{n} (n-k+1) v^k {}_{k-1|}q_x",
+        "{}_{n|}(IA)_x = \\sum_{k=n+1}^{\\infty} (k-n) v^k {}_{k-1|}q_x",
+        "C_x = v^{x+1} d_x",
+        "M_x = \\sum C_{x+k}",
+        "R_x = \\sum M_{x+k}"
+      ],
+      "key_steps": [
+        "写出变动保险的精算现值求和表达式",
+        "用C_x表示每一项",
+        "利用M_x和R_x的定义进行求和化简",
+        "整理得到换算函数表达式"
+      ],
+      "pitfalls": [
+        "注意递减保险的给付额与求和指标对应",
+        "R_x的定义可能为M_x的累积和，需确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将变动保险（递减定期、递增延期终身）的趸缴纯保费用换算函数M_x, R_x, D_x表示并证明。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q008",
+      "primary_method_id": "ch02_g02_discrete_commutation_premium",
+      "secondary_method_ids": [],
+      "question_type": "趸缴纯保费反求保险金额",
+      "topic_tags": [
+        "定期寿险",
+        "趸缴纯保费",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "A_{x:\\overline{n}|}^{1} = \\frac{M_x - M_{x+n}}{D_x}",
+        "B = \\frac{\\text{趸缴纯保费}}{A_{x:\\overline{n}|}^{1}}"
+      ],
+      "key_steps": [
+        "识别险种为n年定期寿险（死亡年末给付）",
+        "写出趸缴纯保费与保险金额的关系式",
+        "用换算函数表达趸缴纯保费",
+        "查表代入求解保险金额"
+      ],
+      "pitfalls": [
+        "确认换算表利率与题目给定利率一致",
+        "区分死亡年末给付与死亡即付的换算公式差异"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "已知趸缴纯保费，利用换算函数表计算定期寿险的保险金额。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q009",
+      "primary_method_id": "ch02_g02_decompose_variable_benefit",
+      "secondary_method_ids": [
+        "ch02_g02_discrete_commutation_premium"
+      ],
+      "question_type": "变额终身寿险趸缴纯保费计算",
+      "topic_tags": [
+        "变额寿险",
+        "趸缴纯保费",
+        "换算函数",
+        "保险分解"
+      ],
+      "core_formula_latex": [
+        "\\text{趸缴纯保费} = 15000 \\cdot A_{36:\\overline{10}|}^{1} + 20000 \\cdot {}_{10|}A_{36}",
+        "A_{x:\\overline{n}|}^{1} = \\frac{M_x - M_{x+n}}{D_x}",
+        "{}_{m|}A_x = \\frac{M_{x+m}}{D_x}"
+      ],
+      "key_steps": [
+        "按给付金额变化的时间点分解保单",
+        "将各段对应为标准险种（定期寿险、延期终身寿险）",
+        "分别写出各险种的趸缴纯保费换算公式",
+        "求和并查表代入计算"
+      ],
+      "pitfalls": [
+        "分段时注意时间端点是否重叠，延期年数需准确",
+        "不同保额部分不要遗漏或重复"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将变额寿险按时间段分解为定期和延期寿险的组合，利用换算函数分别计算后求和。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q010",
+      "primary_method_id": "ch02_g02_discrete_commutation_premium",
+      "secondary_method_ids": [],
+      "question_type": "趸缴纯保费计算（定额组合）",
+      "topic_tags": [
+        "趸缴纯保费",
+        "定期死亡保险",
+        "纯生存保险",
+        "换算表"
+      ],
+      "core_formula_latex": [
+        "A_{x:\\overline{n}|}^{1} = \\frac{M_x - M_{x+n}}{D_x}",
+        "{}_{n}E_x = \\frac{D_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "识别保险给付类型（死亡/生存）",
+        "写出期望现值表达式",
+        "用换算函数表示",
+        "查表代入计算"
+      ],
+      "pitfalls": [
+        "区分死亡年末给付与即时给付",
+        "确认换算表符号（如D_x, M_x）与教材一致"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "将保单分解为定期死亡保险和纯生存保险，利用换算函数计算趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q011",
+      "primary_method_id": "ch02_g02_discrete_commutation_premium",
+      "secondary_method_ids": [],
+      "question_type": "趸缴纯保费计算（变额递减）",
+      "topic_tags": [
+        "趸缴纯保费",
+        "变额寿险",
+        "递减定期寿险",
+        "换算表"
+      ],
+      "core_formula_latex": [
+        "A_x = \\frac{M_x}{D_x}",
+        "(DA)^1_{x:\\overline{n}|} = \\frac{R_x - R_{x+n} - n M_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "分析给付序列，分解为常数部分和递减部分",
+        "用精算符号表示各部分",
+        "利用换算函数或求和公式计算",
+        "查表代入"
+      ],
+      "pitfalls": [
+        "递减序列项数计算准确",
+        "分解时注意额外给付的起始值",
+        "换算表公式可能因教材而异，需确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将变额给付分解为常数终身寿险和递减定期寿险，利用换算函数计算趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q012",
+      "primary_method_id": "ch02_g02_continuous_premium_integration",
+      "secondary_method_ids": [],
+      "question_type": "连续型寿险趸缴纯保费计算",
+      "topic_tags": [
+        "连续型终身寿险",
+        "de Moivre分布",
+        "趸缴纯保费",
+        "积分法"
+      ],
+      "core_formula_latex": [
+        "\\bar{A}_x = \\int_0^{\\omega-x} e^{-\\delta t} f_T(t) dt",
+        "f_T(t) = \\frac{1}{\\omega-x} \\text{ (de Moivre)}"
+      ],
+      "key_steps": [
+        "确定余命分布类型与参数",
+        "写出连续型寿险现值期望积分式",
+        "代入密度函数并计算定积分",
+        "化简得到精确表达式或数值"
+      ],
+      "pitfalls": [
+        "积分上限为 ω-x 而非 ω",
+        "利力 δ 与年利率 i 的区分（δ=ln(1+i)）",
+        "均匀分布假设下密度为常数，勿漏除"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "在给定死亡分布（如de Moivre）下，通过积分计算连续型终身寿险趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q013",
+      "primary_method_id": "ch02_g02_commutation_expression_interpretation",
+      "secondary_method_ids": [],
+      "question_type": "换算符号表达式解读",
+      "topic_tags": [
+        "换算符号",
+        "保险利益",
+        "趸缴纯保费",
+        "M_x",
+        "R_x",
+        "D_x"
+      ],
+      "core_formula_latex": [
+        "A_x = \\frac{M_x}{D_x}",
+        "A_{x:\\overline{n}|}^1 = \\frac{M_x - M_{x+n}}{D_x}",
+        "(IA)_x = \\frac{R_x}{D_x}",
+        "A_{x:\\overline{n}|} = \\frac{M_x - M_{x+n} + D_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "识别表达式中的换算符号",
+        "将表达式拆分为已知标准形式的线性组合",
+        "匹配标准形式对应的保险责任",
+        "综合描述保险利益（给付条件、金额、时间）"
+      ],
+      "pitfalls": [
+        "R_x 的递增方式（每年递增1单位）与起始年龄",
+        "延期符号的处理（如 R_{x+1} 分母为 D_x 时需调整）",
+        "生存给付与死亡给付的组合需明确区分"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "根据换算符号组合表达式，反推保单的保险责任，包括死亡/生存给付、保额递增方式等。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q014",
+      "primary_method_id": "ch02_g02_recursion_for_interest",
+      "secondary_method_ids": [],
+      "question_type": "利用递推公式反推利率",
+      "topic_tags": [
+        "趸缴纯保费",
+        "递推公式",
+        "利率计算"
+      ],
+      "core_formula_latex": [
+        "A_x = v q_x + v p_x A_{x+1}",
+        "v = \\frac{1}{1+i}"
+      ],
+      "key_steps": [
+        "由生命表计算 p_x 和 q_x",
+        "代入递推公式",
+        "解出折现因子 v",
+        "计算利率 i"
+      ],
+      "pitfalls": [
+        "递推公式适用于死亡年末给付的离散终身寿险",
+        "区分连续与离散模型"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用离散终身寿险趸缴纯保费的递推关系，结合生命表数据反推利率。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q015",
+      "primary_method_id": "ch02_g03_commutation_variable_benefit",
+      "secondary_method_ids": [],
+      "question_type": "变额死亡给付的换算符号表示",
+      "topic_tags": [
+        "换算符号",
+        "变额寿险",
+        "趸缴纯保费"
+      ],
+      "core_formula_latex": [
+        "D_x = v^x l_x",
+        "C_x = v^{x+1} d_x",
+        "M_x = \\sum_{k=x}^{\\infty} C_k",
+        "\\text{趸缴纯保费} = \\frac{\\sum b_{k+1} C_{x+k}}{D_x}"
+      ],
+      "key_steps": [
+        "确定各年龄段的死亡给付额",
+        "写出对应 C_k 的加权和",
+        "利用 M_x 合并连续年龄段",
+        "除以 D_x 得到趸缴纯保费"
+      ],
+      "pitfalls": [
+        "注意死亡年龄与给付年度末的对应：k岁死亡对应 C_k",
+        "M_x 求和起始索引需与教材一致"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "对于分段死亡给付的终身寿险，用换算符号 C_x 和 M_x 表达趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q016",
+      "primary_method_id": "ch02_g03_continuous_whole_life_premium_density",
+      "secondary_method_ids": [],
+      "question_type": "连续型终身寿险趸缴纯保费计算（给定密度）",
+      "topic_tags": [
+        "连续型终身寿险",
+        "趸缴纯保费",
+        "生存分布"
+      ],
+      "core_formula_latex": [
+        "\\bar{A}_x = \\int_0^{\\infty} e^{-\\delta t} f_T(t) dt"
+      ],
+      "key_steps": [
+        "确定未来生存时间密度函数",
+        "写出连续型终身寿险趸缴纯保费积分公式",
+        "代入利力和密度函数",
+        "计算定积分"
+      ],
+      "pitfalls": [
+        "注意积分上限为极限年龄减x，密度函数定义域",
+        "验证密度函数归一化"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定未来生存时间密度函数，直接积分计算连续型终身寿险的趸缴纯保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q017",
+      "primary_method_id": "ch02_g03_fund_sufficiency_normal_approx",
+      "secondary_method_ids": [],
+      "question_type": "独立保单组合的基金充足概率计算（正态近似）",
+      "topic_tags": [
+        "连续型死亡保险",
+        "常数死力",
+        "趸缴纯保费",
+        "正态近似",
+        "基金充足性"
+      ],
+      "core_formula_latex": [
+        "\\bar{A}_x = \\frac{\\mu}{\\mu+\\delta}",
+        "\\bar{A}_x^{(2)} = \\frac{\\mu}{\\mu+2\\delta}",
+        "\\text{Var}(Z) = b^2 (\\bar{A}_x^{(2)} - (\\bar{A}_x)^2)",
+        "S = z_{\\alpha} \\sqrt{n \\text{Var}(Z)}"
+      ],
+      "key_steps": [
+        "计算每人趸缴纯保费和总保费",
+        "计算每人给付现值方差",
+        "利用独立同分布中心极限定理，总给付现值近似正态",
+        "根据概率要求求初始基金分位数"
+      ],
+      "pitfalls": [
+        "区分Ā_x和Ā_x^{(2)}，注意利力加倍",
+        "保险金额倍数需平方后乘方差",
+        "正态近似要求n足够大"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用常数死力下趸缴纯保费公式和正态近似，计算独立保单组合基金足以支付死亡给付的初始基金。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q018",
+      "primary_method_id": "ch02_g03_mixed_distribution_percentile",
+      "secondary_method_ids": [],
+      "question_type": "给付现值随机变量的分位数计算",
+      "topic_tags": [
+        "延期终身寿险",
+        "混合分布",
+        "分位数",
+        "常数死力"
+      ],
+      "core_formula_latex": [
+        "Z = \\begin{cases} 0, & T \\le n, \\\\ e^{-\\delta T}, & T > n \\end{cases}",
+        "P(Z \\le z) = P(T \\le n) + P\\bigl(T \\ge -\\frac{\\ln z}{\\delta}\\bigr), \\quad 0 < z \\le e^{-\\delta n}",
+        "P(T \\le n) = 1 - e^{-\\mu n}, \\quad P(T \\ge t) = e^{-\\mu t}"
+      ],
+      "key_steps": [
+        "写出给付现值随机变量 Z 的定义",
+        "判断 Z 的分布类型（混合分布：有概率质量在 0，其余连续）",
+        "写出 Z 的累积分布函数 F_Z(z)，注意分段区间",
+        "根据分位数条件 P(Z > m) = p 转化为 F_Z(m) = 1-p",
+        "判断分位数落在哪个区间，代入相应表达式求解方程"
+      ],
+      "pitfalls": [
+        "注意 Z 的取值范围：0 及 (0, e^{-δn}]，分位数可能落在概率质量部分",
+        "连续部分分布函数推导时，注意不等号方向与生存函数的关系",
+        "常数死力下 T 的分布为指数分布，生存函数为 e^{-μt}，密度为 μe^{-μt}"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "对于延期寿险，给付现值随机变量为混合分布，需先写出分布函数，再根据分位数条件解方程。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q019",
+      "primary_method_id": "ch02_g03_recursive_insurance_premium",
+      "secondary_method_ids": [],
+      "question_type": "利用递推公式求趸缴纯保费",
+      "topic_tags": [
+        "离散型终身寿险",
+        "递推公式",
+        "趸缴纯保费"
+      ],
+      "core_formula_latex": [
+        "A_x = v q_x + v p_x A_{x+1}",
+        "v = \\frac{1}{1+i}, \\quad p_x = 1 - q_x"
+      ],
+      "key_steps": [
+        "写出离散型终身寿险的递推公式",
+        "代入已知的 A_{x+1} 与 A_x 的关系（如差或和）",
+        "解方程求出 A_x",
+        "计算题目要求的表达式"
+      ],
+      "pitfalls": [
+        "递推公式仅适用于离散型寿险，连续型需用积分或微分方程",
+        "注意 v 和 p_x 的计算，v = 1/(1+i)，p_x = 1 - q_x",
+        "代数运算中保持分数形式可避免舍入误差"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用离散型终身寿险的递推公式，代入已知的相邻年龄趸缴保费关系，解出未知保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch02_q020",
+      "primary_method_id": "ch02_g03_recursive_insurance_premium",
+      "secondary_method_ids": [],
+      "question_type": "递增寿险趸缴纯保费计算",
+      "topic_tags": [
+        "递增寿险",
+        "递归关系",
+        "趸缴纯保费"
+      ],
+      "core_formula_latex": [
+        "(IA)_x = A_x + {}_1E_x (IA)_{x+1}",
+        "A_x = v q_x + {}_1E_x A_{x+1}",
+        "q_x = 1 - {}_1E_x (1+i)"
+      ],
+      "key_steps": [
+        "利用 ${}_1E_x$ 和利率求 $q_x$",
+        "由 $q_x$ 和 $A_{x+1}$ 求 $A_x$",
+        "代入递增寿险递归关系解出 $(IA)_{x+1}$"
+      ],
+      "pitfalls": [
+        "注意 ${}_1E_x = v p_x$，不要混淆",
+        "区分不同险种（终身寿险、递增寿险）的递归关系"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用寿险趸缴纯保费之间的递归关系，从已知保费推导未知保费。",
+      "chapter": 2
+    },
+    {
+      "question_id": "life_actuarial_ch03_q001",
+      "primary_method_id": "ch03_g01_annuity_payment_from_present_value",
+      "secondary_method_ids": [],
+      "question_type": "生存年金年金额计算",
+      "topic_tags": [
+        "延期生存年金",
+        "期初付",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "{}_{1|}\\ddot{a}_x = \\ddot{a}_x - 1",
+        "R = \\frac{P}{\\ddot{a}_x - 1}"
+      ],
+      "key_steps": [
+        "确定年金类型（期初/期末，即期/延期）",
+        "写出该年金的精算现值表达式",
+        "令精算现值等于购买价格，解出年金额 $R$",
+        "查表代入数值"
+      ],
+      "pitfalls": [
+        "默认生存年金通常为期初付，除非题目明确期末付",
+        "延期年金的现值表达要正确，如延期1年期初付为 $\\ddot{a}_x - 1$"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知年金购买价格（精算现值），反求每年给付金额，需正确表达延期年金现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q002",
+      "primary_method_id": "ch03_g01_commutation_function_present_value",
+      "secondary_method_ids": [],
+      "question_type": "延期定期生存年金精算现值计算",
+      "topic_tags": [
+        "生存年金",
+        "换算函数",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "1000 \\times \\frac{N_{40} - N_{50}}{D_{30}}"
+      ],
+      "key_steps": [
+        "识别为延期10年给付10年期初付生存年金",
+        "写出换算函数公式",
+        "查附表II(A)获取D30,N40,N50",
+        "代入计算"
+      ],
+      "pitfalls": [
+        "确认年金是期初付还是期末付，默认期初付",
+        "注意延期年限和给付年限的对应"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用换算函数 N_x, D_x 计算延期定期生存年金的精算现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q003",
+      "primary_method_id": "ch03_g01_commutation_function_present_value",
+      "secondary_method_ids": [],
+      "question_type": "纯粹生存保险精算现值计算",
+      "topic_tags": [
+        "生存保险",
+        "换算函数",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "10000 \\times \\frac{D_{70}}{D_{30}}"
+      ],
+      "key_steps": [
+        "识别为40年期纯粹生存保险",
+        "写出换算函数公式 nEx = D_{x+n}/D_x",
+        "查附表II(A)获取D30,D70",
+        "代入计算"
+      ],
+      "pitfalls": [
+        "区分生存保险与生存年金，生存保险是一次性给付"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用换算函数 D_x 计算纯粹生存保险的精算现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q004",
+      "primary_method_id": "ch03_g01_deferred_discrete_annuity_pv",
+      "secondary_method_ids": [],
+      "question_type": "延期离散生存年金精算现值计算",
+      "topic_tags": [
+        "生存年金",
+        "延期年金",
+        "精算现值",
+        "de Moivre模型"
+      ],
+      "core_formula_latex": [
+        "{}_{n|} \\ddot{a}_x = {}_n E_x \\ddot{a}_{x+n}",
+        "{}_n E_x = v^n {}_n p_x",
+        "\\ddot{a}_x = \\sum_{k=0}^{\\omega-x-1} v^k {}_k p_x"
+      ],
+      "key_steps": [
+        "确定延期年数 n 和给付类型（期初/期末）",
+        "计算 n 年生存概率和贴现因子得 {}_n E_x",
+        "利用生存模型计算即期年金现值",
+        "相乘得延期年金现值"
+      ],
+      "pitfalls": [
+        "题目未明确期初或期末年金时，需按教材约定或上下文判断",
+        "极限年龄 ω 需从生存函数确定，求和时避免超出范围",
+        "存活函数转换为生存概率时注意端点处理"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将延期年金分解为纯生存保险与即期年金的乘积，利用给定生存模型计算。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q005",
+      "primary_method_id": "ch03_g01_constant_force_continuous_annuity",
+      "secondary_method_ids": [],
+      "question_type": "连续生存年金精算现值计算（恒定死亡力）",
+      "topic_tags": [
+        "连续生存年金",
+        "精算现值",
+        "恒定死亡力",
+        "指数分布"
+      ],
+      "core_formula_latex": [
+        "\\bar{a}_x = \\int_0^\\infty e^{-\\delta t} {}_t p_x dt",
+        "{}_t p_x = e^{-\\mu t}",
+        "\\bar{a}_x = \\frac{1}{\\delta + \\mu}"
+      ],
+      "key_steps": [
+        "从概率密度函数或死亡力识别 μ",
+        "写出连续年金积分式",
+        "代入恒定死亡力下的生存概率",
+        "积分得 1/(δ+μ)"
+      ],
+      "pitfalls": [
+        "区分利息强度 δ 与年利率 i，δ = ln(1+i)",
+        "死亡力恒定是前提，若变化则需分段积分"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "当死亡力恒定时，连续生存年金现值等于利息强度与死亡力之和的倒数。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q006",
+      "primary_method_id": "ch03_g01_insurance_annuity_relation_conversion",
+      "secondary_method_ids": [],
+      "question_type": "利用关系式求未知险种现值",
+      "topic_tags": [
+        "生存年金",
+        "两全保险",
+        "定期死亡保险",
+        "关系式"
+      ],
+      "core_formula_latex": [
+        "d = \\frac{i}{1+i}",
+        "A_{x:\\overline{n}|} = 1 - d \\ddot{a}_{x:\\overline{n}|}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + {}_n E_x"
+      ],
+      "key_steps": [
+        "识别年金类型（期初/期末）",
+        "转换年金期限",
+        "利用年金与两全保险关系求两全保险现值",
+        "分解两全保险得定期死亡保险现值"
+      ],
+      "pitfalls": [
+        "注意期末付年金 a_{x:\\overline{n}|} 与期初付年金 \\ddot{a}_{x:\\overline{n}|} 的转换关系",
+        "期限匹配：a_{30:\\overline{9}|} 对应 \\ddot{a}_{30:\\overline{10}|} 需加1"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用基本关系式，从已知年金和纯生存保险现值推导定期死亡保险现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q007",
+      "primary_method_id": "ch03_g01_annuity_relation_under_udd",
+      "secondary_method_ids": [],
+      "question_type": "证明年金间关系",
+      "topic_tags": [
+        "生存年金",
+        "UDD假设",
+        "关系证明"
+      ],
+      "core_formula_latex": [
+        "\\bar A_x = \\frac{i}{\\delta} A_x",
+        "A_x^{(m)} = \\frac{i}{i^{(m)}} A_x",
+        "\\ddot a_x^{(m)} = \\frac{1 - A_x^{(m)}}{d^{(m)}}",
+        "\\bar a_x = \\frac{1 - \\bar A_x}{\\delta}",
+        "d^{(m)} = i^{(m)} e^{-\\delta/m}"
+      ],
+      "key_steps": [
+        "写出年金与寿险现值的基本关系",
+        "代入UDD假设下的寿险现值关系",
+        "利用名义利率与贴现率关系化简",
+        "对于近似公式，使用泰勒展开或梯形近似"
+      ],
+      "pitfalls": [
+        "原题(1)(2)在UDD下成立，但需确认教材是否视为精确等式；实际为近似关系",
+        "区分精确等式与近似公式，注意符号约定"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "在UDD假设下推导离散与连续年金的关系，并证明常用近似公式。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q008",
+      "primary_method_id": "ch03_g02_mixed_annuity_present_value",
+      "secondary_method_ids": [],
+      "question_type": "混合年金的精算现值计算",
+      "topic_tags": [
+        "生存年金",
+        "确定年金",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "R = \\sum_{t} \\text{给付}_t \\cdot v^t \\cdot {}_t p_x"
+      ],
+      "key_steps": [
+        "分解年金为确定部分和生存部分",
+        "分别计算确定年金现值和生存年金精算现值",
+        "利用生命表计算生存概率",
+        "求和"
+      ],
+      "pitfalls": [
+        "利率未给出时需假设或查表",
+        "区分确定给付与生存给付的折现方式",
+        "生命表数据代入时注意年龄对应"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "将混合年金拆分为确定年金和生存年金，分别用确定年金现值公式和生存年金精算现值公式计算后求和。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q009",
+      "primary_method_id": "ch03_g02_udd_annuity_frequency_approximation",
+      "secondary_method_ids": [],
+      "question_type": "UDD假设下不同支付频率的生存年金精算现值",
+      "topic_tags": [
+        "UDD假设",
+        "支付频率",
+        "终身生存年金",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "a_x^{(m)} \\approx a_x + \\frac{m-1}{2m}"
+      ],
+      "key_steps": [
+        "计算按年支付年金现值a_x（查表）",
+        "根据支付频率m代入近似公式",
+        "乘以年总给付金额"
+      ],
+      "pitfalls": [
+        "区分期初付与期末付，近似公式不同",
+        "UDD假设下近似公式的适用条件",
+        "查表时注意换算函数表的使用"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "在UDD假设下，利用近似公式将按年支付年金现值调整为任意频率支付年金现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q010",
+      "primary_method_id": "ch03_g02_equivalence_principle_annuity",
+      "secondary_method_ids": [],
+      "question_type": "生存年金等价方程求解",
+      "topic_tags": [
+        "生存年金",
+        "精算等价原理",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "2000 \\ddot{a}_{23:\\overline{36}|} = R \\cdot {}_{37|}\\ddot{a}_{23}",
+        "\\ddot{a}_{x:\\overline{n}|} = \\frac{N_x - N_{x+n}}{D_x}",
+        "{}_{n|}\\ddot{a}_x = \\frac{N_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "识别缴费流和给付流",
+        "写出各自的精算现值表达式",
+        "利用换算函数表示年金现值",
+        "建立等式解未知数",
+        "查表代入计算"
+      ],
+      "pitfalls": [
+        "延期年数计算：23岁到60岁为37年，不是36年",
+        "缴费期数：36年从23岁到58岁，注意年龄区间",
+        "区分期初付年金符号"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用精算等价原理，将保费缴纳和年金给付的现值用换算函数表示，建立方程求解未知给付金额。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q011",
+      "primary_method_id": "ch03_g02_udd_annuity_frequency_approximation",
+      "secondary_method_ids": [
+        "ch03_g02_term_life_insurance_end_year"
+      ],
+      "question_type": "组合保单精算现值计算（传统近似法）",
+      "topic_tags": [
+        "生存年金",
+        "传统近似法",
+        "定期死亡保险",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "\\ddot{a}_x^{(12)} \\approx \\ddot{a}_x - \\frac{11}{24}",
+        "{}_{30|}\\ddot{a}_{60}^{(12)} = \\frac{D_{60}}{D_{30}} \\ddot{a}_{60}^{(12)}",
+        "A_{30:\\overline{30}|}^{1} = \\frac{M_{30} - M_{60}}{D_{30}}"
+      ],
+      "key_steps": [
+        "分解保单为延期月付年金和定期死亡保险",
+        "对月付年金使用传统近似法转化为年付年金",
+        "计算延期因子",
+        "计算定期死亡保险现值",
+        "求和并化简为换算函数表达式",
+        "查表代入"
+      ],
+      "pitfalls": [
+        "区分期初付和期末付年金，近似公式不同",
+        "死亡保险给付时刻为死亡年度末，对应死亡年末给付公式",
+        "延期年数：30岁到60岁为30年，注意年金开始年龄"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将组合保单拆分为延期月付生存年金和定期死亡保险，分别用传统近似法和换算函数计算现值，再求和。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q012",
+      "primary_method_id": "ch03_g02_udd_annuity_frequency_approximation",
+      "secondary_method_ids": [],
+      "question_type": "月付期末生存年金精算现值计算（UDD）",
+      "topic_tags": [
+        "生存年金",
+        "UDD假设",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "a_x^{(m)} \\approx \\ddot{a}_x - \\frac{1}{m} - \\frac{m-1}{2m} d \\ddot{a}_x",
+        "\\ddot{a}_x = \\frac{N_x}{D_x}"
+      ],
+      "key_steps": [
+        "确定年给付总额（月金额×12）",
+        "查表或计算期初付年付生存年金 \\ddot{a}_{55}",
+        "利用UDD近似公式计算月付期末付年金 a_{55}^{(12)}",
+        "精算现值 = 年给付额 × a_{55}^{(12)}"
+      ],
+      "pitfalls": [
+        "区分期初付与期末付：题目明确“每月末给付”为期末付",
+        "UDD近似公式有多种形式，需按教材确认",
+        "利率转换：i=6%时 d=i/(1+i)"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用UDD假设将年付期初付生存年金转换为月付期末付生存年金，再乘以年给付额。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q013",
+      "primary_method_id": "ch03_g02_continuous_annuity_moments_insurance",
+      "secondary_method_ids": [],
+      "question_type": "连续生存年金矩与趸缴纯保费关系",
+      "topic_tags": [
+        "连续生存年金",
+        "方差",
+        "趸缴纯保费",
+        "利息力"
+      ],
+      "core_formula_latex": [
+        "\\bar a_x = \\frac{1 - \\bar A_x}{\\delta}",
+        "{}^{2}\\bar a_x = \\frac{1 - {}^{2}\\bar A_x}{2\\delta}",
+        "\\operatorname{Var}[\\bar a_{\\overline{T}|}] = \\frac{{}^{2}\\bar A_x - (\\bar A_x)^2}{\\delta^2}"
+      ],
+      "key_steps": [
+        "写出 \\bar a_x 与 \\bar A_x、\\delta 的关系",
+        "写出 {}^{2}\\bar a_x 与 {}^{2}\\bar A_x、\\delta 的关系",
+        "写出方差公式",
+        "联立方程消去 \\bar A_x 和 {}^{2}\\bar A_x，解出 \\delta",
+        "回代求 \\bar A_x"
+      ],
+      "pitfalls": [
+        "确认 {}^{2}\\bar a_x 是二倍力息年金（利息力 2\\delta）而非二阶矩",
+        "方差公式中分母为 \\delta^2，不是 \\delta"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用连续生存年金现值随机变量的期望、二倍力息年金与方差关系，联立方程求解 \\bar A_x。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q014",
+      "primary_method_id": "ch03_g02_variable_continuous_annuity_segmentation",
+      "secondary_method_ids": [],
+      "question_type": "变额连续生存年金现值计算",
+      "topic_tags": [
+        "连续生存年金",
+        "分段给付",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "\\text{APV} = \\sum_{k} c_k \\cdot v^{t_k} \\cdot {}_{t_k}p_x \\cdot \\bar{a}_{x+t_k:\\overline{1}|}",
+        "\\bar{a}_{x:\\overline{1}|} = \\int_0^1 v^t \\cdot {}_t p_x \\, dt"
+      ],
+      "key_steps": [
+        "按给付率变化点将年金分段",
+        "每段写为延期连续即期年金",
+        "利用连续年金公式或查表计算每段现值",
+        "加权求和"
+      ],
+      "pitfalls": [
+        "区分连续给付与离散给付，注意题目中“连续给付”的含义",
+        "若使用离散生命表，需在UDD假设下转换连续年金"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将变额连续生存年金按给付率分段，每段视为延期连续即期年金，利用积分或换算函数求和。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q015",
+      "primary_method_id": "ch03_g03_deferred_continuous_annuity_via_e_and_a",
+      "secondary_method_ids": [],
+      "question_type": "延期连续生存年金现值计算（给定换算函数）",
+      "topic_tags": [
+        "连续生存年金",
+        "延期年金",
+        "纯生存保险",
+        "死亡保险",
+        "UDD假设"
+      ],
+      "core_formula_latex": [
+        "{}_{m|}\\bar{a}_{x:\\overline{n}|} = {}_m E_x \\cdot \\bar{a}_{x+m:\\overline{n}|}",
+        "\\bar{a}_{x:\\overline{n}|} = \\frac{1 - \\bar{A}_{x:\\overline{n}|}}{\\delta}",
+        "\\bar{A}_{x:\\overline{n}|} = \\frac{i}{\\delta} A^1_{x:\\overline{n}|} + {}_n E_x \\quad (\\text{UDD})"
+      ],
+      "key_steps": [
+        "写出延期年金表达式",
+        "利用纯生存保险分解为即期年金",
+        "利用连续年金与死亡保险的关系计算即期年金",
+        "在UDD下将离散死亡保险转换为连续死亡保险",
+        "代入已知数值计算"
+      ],
+      "pitfalls": [
+        "区分连续与离散符号，勿混淆 ā 与 a",
+        "UDD假设下转换系数为 i/δ，注意 δ = ln(1+i)",
+        "纯生存保险的乘法性质：_{m+n}E_x = _mE_x · _nE_{x+m}"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用纯生存保险和死亡保险的已知值，通过关系式间接计算延期连续生存年金现值，适用于UDD假设。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q016",
+      "primary_method_id": "ch03_g03_actuarial_equivalence_annuity_balance",
+      "secondary_method_ids": [],
+      "question_type": "生存年金精算等价平衡",
+      "topic_tags": [
+        "生存年金",
+        "精算等价原理",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "R \\cdot \\ddot{a}_{x:\\overline{n}|} = S \\cdot {}_{n|}\\ddot{a}_x",
+        "\\ddot{a}_{x:\\overline{n}|} = \\frac{N_x - N_{x+n}}{D_x}",
+        "{}_{n|}\\ddot{a}_x = \\frac{N_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "确定缴费期和给付期",
+        "写出缴费和给付的精算现值表达式",
+        "利用换算函数表示年金",
+        "建立等式并求解未知数"
+      ],
+      "pitfalls": [
+        "缴费期长度计算（是否包含端点）",
+        "区分期初付和期末付年金符号",
+        "确认换算函数表对应关系"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用精算等价原理，将缴费和给付表示为生存年金现值，通过换算函数建立方程求解未知缴费额。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q017",
+      "primary_method_id": "ch03_g03_increasing_life_annuity_pv",
+      "secondary_method_ids": [],
+      "question_type": "递增生存年金现值计算",
+      "topic_tags": [
+        "递增年金",
+        "换算函数",
+        "生存年金现值"
+      ],
+      "core_formula_latex": [
+        "B_k = a + d \\cdot k",
+        "PV = a \\cdot \\ddot{a}_{x}^{(m)} + d \\cdot (I\\ddot{a})_{x}^{(m)}",
+        "\\ddot{a}_x = \\frac{N_x}{D_x}",
+        "(I\\ddot{a})_x = \\frac{S_x}{D_x}"
+      ],
+      "key_steps": [
+        "确定年金支付模式（期初/期末）",
+        "将给付额分解为等额部分和递增部分",
+        "写出各部分现值公式",
+        "利用换算函数查表计算"
+      ],
+      "pitfalls": [
+        "确认年金是期初付还是期末付，换算函数不同",
+        "递增年金换算函数可能为S_x或R_x，需按教材约定",
+        "注意延期情况，现值需调整下标或乘以延期因子"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将递增年金分解为等额年金和标准递增年金，利用换算函数计算现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q018",
+      "primary_method_id": "ch03_g03_varying_annuity_commutation",
+      "secondary_method_ids": [],
+      "question_type": "变动年金精算现值转换函数表示",
+      "topic_tags": [
+        "生存年金",
+        "转换函数",
+        "递增年金",
+        "递减年金"
+      ],
+      "core_formula_latex": [
+        "D_x = v^x l_x",
+        "N_x = \\sum_{k=0}^{\\infty} D_{x+k}",
+        "S_x = \\sum_{k=0}^{\\infty} N_{x+k}",
+        "a_x = \\frac{N_{x+1}}{D_x}",
+        "(Ia)_x = \\frac{S_{x+1}}{D_x}",
+        "(Ia)_{x:\\overline{n}|} = \\frac{S_{x+1} - S_{x+n+1} - n N_{x+n+1}}{D_x}"
+      ],
+      "key_steps": [
+        "列出各年给付额序列",
+        "分解为基础水平年金和递增/递减部分",
+        "写出各部分精算现值用转换函数公式",
+        "合并化简"
+      ],
+      "pitfalls": [
+        "区分期初付与期末付，转换函数下标偏移",
+        "定期递增/递减年金公式需注意期限"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "将复杂变动年金分解为基本年金组合，利用转换函数表达精算现值。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q019",
+      "primary_method_id": "ch03_g03_geometric_decreasing_annuity_epv",
+      "secondary_method_ids": [],
+      "question_type": "等比递减生存年金精算现值",
+      "topic_tags": [
+        "生存年金",
+        "等比递减",
+        "精算现值"
+      ],
+      "core_formula_latex": [
+        "\\text{EPV} = B_0 \\sum_{k=0}^{n-1} (c v)^k {}_k p_x"
+      ],
+      "key_steps": [
+        "确定首年给付额和递减比例c",
+        "写出精算现值表达式",
+        "令v' = c v，转化为等额年金形式",
+        "查表计算"
+      ],
+      "pitfalls": [
+        "注意期初付还是期末付，k的起始",
+        "递减比例是相对于前一年还是初始额"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给付额按固定比例递减时，将比例因子与贴现因子合并，转化为等额生存年金计算。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch03_q020",
+      "primary_method_id": "ch03_g03_life_annuity_present_value_and_benefit",
+      "secondary_method_ids": [],
+      "question_type": "生存年金给付额计算",
+      "topic_tags": [
+        "生存年金精算现值",
+        "期初付年金",
+        "每年给付多次"
+      ],
+      "core_formula_latex": [
+        "50000 = 12k \\cdot \\ddot{a}_{50}^{(12)}"
+      ],
+      "key_steps": [
+        "写出年金精算现值表达式（注意给付频率和期初付）",
+        "建立等式：趸缴净保费 = 给付额 × 年金现值系数",
+        "解出每月给付额 k",
+        "查表或使用近似公式计算年金现值系数"
+      ],
+      "pitfalls": [
+        "区分期初付和期末付年金",
+        "注意给付频率 m 与每年给付总额的关系",
+        "近似公式仅在教材允许时使用"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用精算等价原理，将趸缴净保费等于生存年金精算现值，解出未知给付额。",
+      "chapter": 3
+    },
+    {
+      "question_id": "life_actuarial_ch04_q001",
+      "primary_method_id": "ch04_g01_fully_discrete_net_premium_commutation",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "终身寿险",
+        "限期缴费",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "P_{35} = \\frac{M_{35}}{N_{35}}",
+        "_{25}P_{35} = \\frac{M_{35}}{N_{35} - N_{60}}",
+        "_{30}P_{35} = \\frac{M_{35}}{N_{35} - N_{65}}"
+      ],
+      "key_steps": [
+        "确定保险类型和缴费期",
+        "写出趸缴纯保费和年金现值的换算函数表达式",
+        "代入年缴纯保费公式 P = A / \\ddot{a}",
+        "乘以保险金额",
+        "查表代入数值计算"
+      ],
+      "pitfalls": [
+        "注意缴费期与保险期间的区别",
+        "换算函数对应利率和生命表需一致",
+        "保险金额乘系数"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "基于精算等价原理，用换算函数表示终身寿险和限期缴费的年缴纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q002",
+      "primary_method_id": "ch04_g01_fully_discrete_net_premium_commutation",
+      "secondary_method_ids": [],
+      "question_type": "全离散均衡纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "换算函数",
+        "全离散式"
+      ],
+      "core_formula_latex": [
+        "P = b \\cdot \\frac{A}{\\ddot{a}}",
+        "A_{x:\\overline{n}|}^{1} = \\frac{M_x - M_{x+n}}{D_x}",
+        "\\ddot{a}_{x:\\overline{n}|} = \\frac{N_x - N_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "确定保险类型和缴费期",
+        "写出精算现值符号",
+        "用换算函数表示分子分母",
+        "代入查表数值计算"
+      ],
+      "pitfalls": [
+        "注意区分定期寿险、两全保险的精算现值符号",
+        "缴费期与保险期不一致时需调整年金符号"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用换算函数表计算全离散均衡纯保费，将精算现值表示为M、N、D的比值。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q003",
+      "primary_method_id": "ch04_g01_loss_variance_known_distribution",
+      "secondary_method_ids": [],
+      "question_type": "亏损现值方差计算",
+      "topic_tags": [
+        "亏损现值",
+        "方差",
+        "整值余命分布",
+        "均衡纯保费"
+      ],
+      "core_formula_latex": [
+        "L = v^{K+1} - P \\ddot{a}_{\\overline{K+1}|}",
+        "\\text{Var}(L) = \\left(1 + \\frac{P}{d}\\right)^2 \\text{Var}(v^{K+1})",
+        "P = \\frac{A}{\\ddot{a}}"
+      ],
+      "key_steps": [
+        "根据余命分布计算A和\\ddot{a}",
+        "由平衡原理求P",
+        "将L表示为v^{K+1}的线性函数",
+        "计算Var(v^{K+1})",
+        "代入得Var(L)"
+      ],
+      "pitfalls": [
+        "注意保费支付期数为K+1",
+        "区分d与i的关系",
+        "计算方差时注意常数项不影响"
+      ],
+      "difficulty": 3,
+      "review_priority": "high",
+      "summary": "已知整值余命分布时，通过亏损现值线性变换求方差。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q004",
+      "primary_method_id": "ch04_g01_premium_relation_derivation",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "两全保险分解",
+        "保费关系式"
+      ],
+      "core_formula_latex": [
+        "P_{x:\\overline{n}|} = \\frac{A_{x:\\overline{n}|}}{\\ddot{a}_{x:\\overline{n}|}}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}^{1}",
+        "{}_{n}P_{x} = \\frac{A_{x}}{\\ddot{a}_{x:\\overline{n}|}}"
+      ],
+      "key_steps": [
+        "写出已知保费的定义式",
+        "利用趸缴保费分解建立等式",
+        "通过等式相减或代入消去共同项",
+        "解出目标保费"
+      ],
+      "pitfalls": [
+        "区分P_{x:\\overline{n}|}, P^{1}_{x:\\overline{n}|}, P_{x:\\overline{n}|}^{1}, {}_{n}P_{x}等符号含义",
+        "注意缴费期与保险期的对应关系"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用保费定义和趸缴保费分解关系，从已知保费求解未知保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q005",
+      "primary_method_id": "ch04_g01_premium_relation_derivation",
+      "secondary_method_ids": [],
+      "question_type": "公式证明与解释",
+      "topic_tags": [
+        "均衡纯保费",
+        "贴现因子",
+        "年金与保险关系"
+      ],
+      "core_formula_latex": [
+        "P_x = \\frac{dA_x}{1-A_x}",
+        "1 = d\\ddot{a}_x + A_x"
+      ],
+      "key_steps": [
+        "写出保费定义P = A / ä",
+        "利用关系式1 = d ä + A解出ä",
+        "代入化简",
+        "给出直观解释"
+      ],
+      "pitfalls": [
+        "确认完全离散模型假设",
+        "d与i、v的关系需按教材约定"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "利用年金与保险现值的基本关系式推导保费公式，并解释其直观含义。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q006",
+      "primary_method_id": "ch04_g01_premium_relation_derivation",
+      "secondary_method_ids": [],
+      "question_type": "保费关系证明与解释",
+      "topic_tags": [
+        "均衡纯保费",
+        "两全保险",
+        "延期终身寿险",
+        "保费关系"
+      ],
+      "core_formula_latex": [
+        "P_{x:\\overline{n}|} = \\frac{A_{x:\\overline{n}|}}{\\ddot{a}_{x:\\overline{n}|}}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + {}_n E_x",
+        "{}_{n}P_x = \\frac{{}_n E_x A_{x+n}}{\\ddot{a}_{x:\\overline{n}|}}"
+      ],
+      "key_steps": [
+        "写出各保费的定义式",
+        "将等式两边用趸缴保费和年金表示",
+        "利用关系式化简",
+        "解释经济含义"
+      ],
+      "pitfalls": [
+        "注意符号约定：nP_x通常为n年延期终身寿险保费，缴费期n年",
+        "区分生存保险趸缴保费nE_x与A^{1}_{x:\\overline{n}|}"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用保费定义和趸缴保费关系证明保费等式，并解释经济含义。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q007",
+      "primary_method_id": "ch04_g01_equivalence_principle_nonstandard",
+      "secondary_method_ids": [],
+      "question_type": "保费等价计算求保险金额",
+      "topic_tags": [
+        "精算等价原理",
+        "终身寿险",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "1900 + 100\\ddot{a}_{30} = S A_{30}",
+        "S = \\frac{1900 D_{30} + 100 N_{30}}{M_{30}}"
+      ],
+      "key_steps": [
+        "确定保费支付流",
+        "计算保费现值（注意延期年金）",
+        "写出保险金现值",
+        "建立等价方程",
+        "用换算函数表示并求解"
+      ],
+      "pitfalls": [
+        "注意延期年金现值转换：_{1|}\\ddot{a}_x = \\ddot{a}_x - 1",
+        "需查表代入换算函数值，不要编造数值"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "根据精算等价原理，将非标准缴费模式转化为现值等式，求解保险金额。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q008",
+      "primary_method_id": "ch04_g02_level_premium_equivalence_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "均衡纯保费求保险金额（两全保险）",
+      "topic_tags": [
+        "均衡纯保费",
+        "两全保险",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "P \\cdot \\ddot{a}_{x:\\overline{n}|} = S \\cdot A_{x:\\overline{n}|}",
+        "S = P \\times \\frac{N_x - N_{x+n}}{M_x - M_{x+n} + D_{x+n}}"
+      ],
+      "key_steps": [
+        "确定投保年龄和保险期间",
+        "写出均衡纯保费等式",
+        "用换算函数表示年金和保险现值",
+        "解出保险金额",
+        "查表代入"
+      ],
+      "pitfalls": [
+        "注意现年与投保年龄的区别",
+        "两全保险的换算函数包含生存给付项D_{x+n}",
+        "缴费期通常与保险期相同，但需确认"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用均衡纯保费原理，将年缴保费与保险给付现值等价，通过换算函数求解保险金额。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q009",
+      "primary_method_id": "ch04_g02_level_premium_equivalence_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "限期缴费的递延年金年缴纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "递延终身生存年金",
+        "限期缴费",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "P \\cdot \\ddot{a}_{x:\\overline{h}|} = R \\cdot {}_{d|}\\ddot{a}_x",
+        "P = R \\times \\frac{N_{x+d}}{N_x - N_{x+h}}"
+      ],
+      "key_steps": [
+        "确定签发年龄、递延期、缴费期、给付金额",
+        "写出精算等价等式",
+        "用换算函数表示限期缴费年金现值和递延年金现值",
+        "解出年缴纯保费",
+        "查表代入"
+      ],
+      "pitfalls": [
+        "递延期与缴费期可能不同，注意区分",
+        "递延年金符号的下标表示递延期",
+        "换算函数N的下标对应年龄"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "限期缴费的递延终身生存年金，利用等价原理，用换算函数求解年缴纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q010",
+      "primary_method_id": "ch04_g02_level_premium_equivalence_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "限期缴费递延年金纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "递延生存年金",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "P \\cdot \\ddot{a}_{20:\\overline{40|}} = 5000 \\cdot {}_{45|}\\ddot{a}_{20}",
+        "P = 5000 \\times \\frac{N_{65}}{N_{20} - N_{60}}"
+      ],
+      "key_steps": [
+        "识别缴费期（20-59岁，40次）和递延期（45年）",
+        "写出精算等价方程：保费现值=年金现值",
+        "用换算函数表示期初付年金现值",
+        "化简求解年缴纯保费"
+      ],
+      "pitfalls": [
+        "“60岁缴清”需明确缴费至59岁还是60岁（本题按缴费至59岁，共40次）",
+        "递延期从投保年龄20岁到给付开始年龄65岁，间隔45年"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "限期缴费递延生存年金的纯保费，通过精算等价方程和换算函数求解。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q011",
+      "primary_method_id": "ch04_g02_level_premium_equivalence_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "延期终身寿险纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "延期终身寿险",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "P \\cdot \\ddot{a}_{20} = 5000 \\cdot {}_{10|}A_{20}",
+        "P = 5000 \\times \\frac{M_{30}}{N_{20}}"
+      ],
+      "key_steps": [
+        "识别保险责任开始年龄（30岁）和缴费期（终身）",
+        "写出精算等价方程：保费现值=保额现值",
+        "用换算函数表示终身年金现值和延期寿险现值",
+        "化简求解年缴纯保费"
+      ],
+      "pitfalls": [
+        "延期年数计算：从20岁到30岁，延期10年",
+        "死亡给付假设需与换算函数一致（附表II(A)通常为死亡年末给付，使用M_x）"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "延期终身寿险的纯保费，缴费期终身，用换算函数求解。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q012",
+      "primary_method_id": "ch04_g02_segmented_benefit_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_level_premium_equivalence_commutation",
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "分段给付终身寿险年缴纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "分段给付",
+        "换算函数",
+        "限期缴费"
+      ],
+      "core_formula_latex": [
+        "P = \\frac{5000 M_{32} - 2000 M_{65}}{N_{32} - N_{60}}"
+      ],
+      "key_steps": [
+        "分解给付为定期寿险和延期终身寿险",
+        "写出给付现值用M,D",
+        "写出保费现值用N,D",
+        "解出P"
+      ],
+      "pitfalls": [
+        "缴费期28年对应年金期间为32到59岁，即N_{32}-N_{60}",
+        "65岁前死亡包含32-64岁，定期寿险期间为33年，M_{32}-M_{65}",
+        "死亡给付假设在死亡年末，使用换算表时确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将分段给付终身寿险分解为定期寿险和延期终身寿险的组合，利用换算函数表达现值和年金，建立等价方程求解年缴纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q013",
+      "primary_method_id": "ch04_g02_segmented_benefit_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_level_premium_equivalence_commutation",
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "分段给付定期寿险年缴纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "分段给付",
+        "换算函数",
+        "定期寿险"
+      ],
+      "core_formula_latex": [
+        "P = \\frac{2000M_{40} + 1000M_{50} - 3000M_{60}}{N_{40} - N_{60}}"
+      ],
+      "key_steps": [
+        "分解给付为两个定期寿险",
+        "写出给付现值用M,D",
+        "写出保费现值用N,D",
+        "解出P"
+      ],
+      "pitfalls": [
+        "保险期限为20年，缴费期相同，年金为\\ddot{a}_{40:\\overline{20}|}，对应N_{40}-N_{60}",
+        "分段给付区间：前10年40-50岁，后10年50-60岁，注意M的脚标对应死亡年末给付的年龄"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将分段给付定期寿险分解为两个连续定期寿险的组合，利用换算函数表达现值和年金，建立等价方程求解年缴纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q014",
+      "primary_method_id": "ch04_g02_segmented_benefit_commutation",
+      "secondary_method_ids": [
+        "ch04_g02_net_premium_equation_general",
+        "ch04_g02_commutation_functions_calculation"
+      ],
+      "question_type": "限期缴费分段给付终身寿险的年缴纯保费",
+      "topic_tags": [
+        "均衡纯保费",
+        "换算函数",
+        "分段给付"
+      ],
+      "core_formula_latex": [
+        "P \\cdot \\ddot{a}_{25:\\overline{10}} = 3500 A_{25} - 1500 A_{25:\\overline{15}}^{1}",
+        "P = \\frac{2000 M_{25} + 1500 M_{40}}{N_{25} - N_{35}}"
+      ],
+      "key_steps": [
+        "写出均衡方程：保费现值=给付现值",
+        "将分段给付表示为趸缴纯保费组合",
+        "用换算函数表示A和a",
+        "查表代入求解"
+      ],
+      "pitfalls": [
+        "注意缴费期10年与保险期终身不同，年金符号为\\ddot{a}_{25:\\overline{10}}",
+        "分段给付的趸缴纯保费组合要正确，避免重复计算",
+        "换算函数需对应正确利率和生命表"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "限期缴费分段给付终身寿险，通过均衡方程和换算函数求解年缴纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q015",
+      "primary_method_id": "ch04_g03_net_premium_equation",
+      "secondary_method_ids": [],
+      "question_type": "定期寿险均衡纯保费计算（给定死亡率）",
+      "topic_tags": [
+        "均衡纯保费",
+        "定期寿险",
+        "离散死亡率"
+      ],
+      "core_formula_latex": [
+        "P = 1000 \\cdot \\frac{A_{x:\\overline{3}|}^{1}}{\\ddot{a}_{x:\\overline{3}|}}",
+        "A_{x:\\overline{3}|}^{1} = v q_x + v^2 p_x q_{x+1} + v^3 p_x p_{x+1} q_{x+2}",
+        "\\ddot{a}_{x:\\overline{3}|} = 1 + v p_x + v^2 p_x p_{x+1}"
+      ],
+      "key_steps": [
+        "确定保险责任：3年定期寿险，死亡年末给付",
+        "计算趸缴纯保费A",
+        "计算期初生存年金现值",
+        "求解P = 保额 * A / 年金现值"
+      ],
+      "pitfalls": [
+        "注意死亡给付时间假设（死亡年末给付）",
+        "q_{x+2}=1表示第三年一定死亡，年金现值只考虑生存付款"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "给定离散死亡率，直接计算定期寿险的趸缴纯保费和年金现值，求均衡纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q016",
+      "primary_method_id": "ch04_g03_discrete_whole_life_premium_variance",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费与损失方差计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "终身寿险",
+        "全离散",
+        "损失方差"
+      ],
+      "core_formula_latex": [
+        "P_x = \\frac{d A_x}{1 - A_x}",
+        "\\operatorname{Var}(L) = \\frac{{}^{2}A_x - (A_x)^2}{(1 - A_x)^2}"
+      ],
+      "key_steps": [
+        "利用关系式求P_x",
+        "代入损失方差公式",
+        "计算标准差"
+      ],
+      "pitfalls": [
+        "注意全离散下公式与全连续的区别",
+        "^2A_x是二阶矩，不是平方"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "已知A_x, ^2A_x, d，求全离散终身寿险的均衡纯保费和损失标准差。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q017",
+      "primary_method_id": "ch04_g03_continuous_loss_analysis",
+      "secondary_method_ids": [],
+      "question_type": "全连续终身寿险损失分析与保费定价",
+      "topic_tags": [
+        "均衡纯保费",
+        "终身寿险",
+        "全连续",
+        "损失随机变量",
+        "保费定价"
+      ],
+      "core_formula_latex": [
+        "L = b v^T - P \\bar{a}_{\\overline{T}|} = \\left(b + \\frac{P}{\\delta}\\right) v^T - \\frac{P}{\\delta}",
+        "E(L) = \\left(b + \\frac{P}{\\delta}\\right) E(v^T) - \\frac{P}{\\delta}",
+        "P(L \\le 0) = P\\left(v^T \\le \\frac{P/\\delta}{b + P/\\delta}\\right)"
+      ],
+      "key_steps": [
+        "化简损失表达式为v^T的线性函数",
+        "求期望E(L)通过积分E(v^T)",
+        "令L=0解出临界v^T，进而求T",
+        "求损失概率P(L>0)或P(L≤0)通过T的分布",
+        "给定不亏损概率，反解保费P"
+      ],
+      "pitfalls": [
+        "注意全连续下年金符号和利力δ",
+        "积分计算时注意定义域",
+        "解方程时注意v^T的范围"
+      ],
+      "difficulty": 3,
+      "review_priority": "high",
+      "summary": "给定T的密度和利力，分析全连续终身寿险损失，求期望、临界值、损失概率和保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q018",
+      "primary_method_id": "ch04_g03_continuous_net_premium_calculation",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算",
+      "topic_tags": [
+        "完全连续终身寿险",
+        "均匀分布",
+        "均衡纯保费"
+      ],
+      "core_formula_latex": [
+        "\\bar{P}(\\bar{A}_x) = \\frac{\\bar{A}_x}{\\bar{a}_x} = \\frac{\\delta \\bar{A}_x}{1-\\bar{A}_x}",
+        "\\bar{A}_x = E[e^{-\\delta T}]",
+        "\\bar{a}_x = \\frac{1-\\bar{A}_x}{\\delta}"
+      ],
+      "key_steps": [
+        "确定剩余寿命 T 的分布和密度函数",
+        "计算趸缴纯保费 Ā = ∫ e^{-δt} f_T(t) dt",
+        "计算连续年金现值 ā = (1-Ā)/δ",
+        "求均衡纯保费 P̄ = Ā/ā"
+      ],
+      "pitfalls": [
+        "区分连续均衡纯保费符号 P̄(Ā) 与离散符号 P(A)",
+        "均匀分布下 T 的密度为 1/(ω-x)，积分限为 0 到 ω-x"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "给定寿命分布和利力，通过期望计算 Ā 和 ā，再求均衡纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q019",
+      "primary_method_id": "ch04_g03_continuous_net_premium_calculation",
+      "secondary_method_ids": [
+        "ch04_g03_net_premium_equation"
+      ],
+      "question_type": "均衡纯保费的换算函数表示",
+      "topic_tags": [
+        "UDD假设",
+        "换算函数",
+        "均衡纯保费"
+      ],
+      "core_formula_latex": [
+        "\\bar{P}(\\bar{A}_x) = \\frac{\\bar{M}_x}{\\bar{N}_x}",
+        "\\bar{P}(\\bar{A}^{1}_{x:\\overline{n}|}) = \\frac{\\bar{M}_x - \\bar{M}_{x+n}}{\\bar{N}_x - \\bar{N}_{x+n}}",
+        "\\bar{P}(\\bar{A}_{x:\\overline{n}|}) = \\frac{\\bar{M}_x - \\bar{M}_{x+n} + \\bar{D}_{x+n}}{\\bar{N}_x - \\bar{N}_{x+n}}"
+      ],
+      "key_steps": [
+        "写出均衡纯保费定义式 P̄ = Ā/ā",
+        "将 Ā 和 ā 用连续换算函数表示（Ā = M̄/D̄, ā = N̄/D̄）",
+        "化简得到换算函数比值",
+        "若需离散换算函数，利用 UDD 关系替换（如 M̄ = (i/δ) M_x）"
+      ],
+      "pitfalls": [
+        "定期寿险与两全保险的分子不同，注意区分",
+        "UDD 下连续换算函数与离散换算函数的关系需按教材约定确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "在 UDD 假设下，用连续换算函数 M̄、N̄、D̄ 表示各类连续均衡纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q020",
+      "primary_method_id": "ch04_g03_net_premium_equation",
+      "secondary_method_ids": [
+        "ch04_g03_continuous_net_premium_calculation"
+      ],
+      "question_type": "均衡纯保费计算（半连续）",
+      "topic_tags": [
+        "均衡纯保费",
+        "半连续寿险",
+        "UDD假设"
+      ],
+      "core_formula_latex": [
+        "P(\\bar{A}_x) = \\frac{\\bar{A}_x}{\\ddot{a}_x}",
+        "\\bar{A}_x = \\frac{i}{\\delta} A_x"
+      ],
+      "key_steps": [
+        "识别保单类型和缴费方式",
+        "写出均衡纯保费公式",
+        "利用UDD转换死亡给付",
+        "查表代入换算函数"
+      ],
+      "pitfalls": [
+        "区分半连续与全离散",
+        "注意缴费期与保险期不同时的年金符号"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "计算半连续式寿险的年缴纯保费，需将死亡即刻给付转换为死亡年末给付，再查表。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q021",
+      "primary_method_id": "ch04_g03_net_premium_equation",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算（全离散，分数期缴费）",
+      "topic_tags": [
+        "均衡纯保费",
+        "全离散寿险",
+        "分数期缴费",
+        "UDD假设"
+      ],
+      "core_formula_latex": [
+        "A_{x:\\overline{n}|}^1 = \\frac{M_x - M_{x+n}}{D_x}",
+        "P_{x:\\overline{n}|}^1 = \\frac{A_{x:\\overline{n}|}^1}{\\ddot{a}_{x:\\overline{n}|}}",
+        "\\ddot{a}_{x:\\overline{n}|}^{(m)} \\approx \\ddot{a}_{x:\\overline{n}|} - \\frac{m-1}{2m}(1 - {}_n E_x)"
+      ],
+      "key_steps": [
+        "确定保险类型和期限",
+        "计算趸缴纯保费",
+        "计算期初付年金",
+        "利用近似公式计算分数期年金",
+        "计算均衡纯保费"
+      ],
+      "pitfalls": [
+        "分数期年金近似公式的系数需按教材确认",
+        "区分期初付与期末付年金"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "全离散定期寿险，计算趸缴、年缴及分数期缴费纯保费，需利用换算函数和分数期年金近似公式。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q022",
+      "primary_method_id": "ch04_g04_annual_mthly_premium_calculation",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算（分期缴费）",
+      "topic_tags": [
+        "均衡纯保费",
+        "年缴m次纯保费",
+        "UDD假设",
+        "传统近似"
+      ],
+      "core_formula_latex": [
+        "P^{(12)} = \\frac{A_{25:\\overline{35}|}}{\\ddot{a}_{25:\\overline{35}|}^{(12)}}",
+        "B = 60 \\times \\frac{\\ddot{a}_{25:\\overline{35}|}^{(12)}}{A_{25:\\overline{35}|}}"
+      ],
+      "key_steps": [
+        "写出月缴保费与保险金额的平衡方程",
+        "计算年缴m次年金现值（UDD精确或传统近似）",
+        "查表获取转换函数值代入"
+      ],
+      "pitfalls": [
+        "区分全离散两全保险的趸缴纯保费符号A_{x:n|}与半连续符号",
+        "传统近似公式中系数(m-1)/(2m)需按教材确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用年缴m次均衡纯保费公式，在UDD或传统近似下计算月缴两全保险的保险金额。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q023",
+      "primary_method_id": "ch04_g04_annual_mthly_premium_calculation",
+      "secondary_method_ids": [
+        "ch04_g04_semi_continuous_whole_life_udd"
+      ],
+      "question_type": "均衡纯保费计算（分期缴费，半连续寿险）",
+      "topic_tags": [
+        "均衡纯保费",
+        "年缴m次纯保费",
+        "半连续终身寿险",
+        "UDD假设"
+      ],
+      "core_formula_latex": [
+        "{}_{40}P^{(12)}(\\bar{A}_{25}) = \\frac{\\bar{A}_{25}}{\\ddot{a}_{25:\\overline{40}|}^{(12)}}",
+        "S = \\frac{42}{{}_{40}P^{(12)}(\\bar{A}_{25})}"
+      ],
+      "key_steps": [
+        "确定缴费期和保险类型，写出平衡方程",
+        "用UDD近似计算半连续趸缴纯保费\\bar{A}_{25}",
+        "计算年缴m次年金现值（UDD精确或传统近似）",
+        "代入求解保险金额"
+      ],
+      "pitfalls": [
+        "半连续寿险趸缴纯保费\\bar{A}与离散A的关系仅在UDD下成立",
+        "限期缴费符号_{h}P^{(m)}不要遗漏缴费期h"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "结合半连续寿险趸缴纯保费的UDD近似与年缴m次年金计算，求月缴限期缴费终身寿险的保险金额。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q024",
+      "primary_method_id": "ch04_g04_level_premium_commutation_functions",
+      "secondary_method_ids": [],
+      "question_type": "分段给付均衡纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "换算函数",
+        "分段给付",
+        "终身寿险"
+      ],
+      "core_formula_latex": [
+        "P = \\frac{M_{25} + M_{35}}{N_{25} + N_{35} - 2N_{65}}"
+      ],
+      "key_steps": [
+        "确定缴费期（25岁至64岁，共40年）和保费结构（前10年P，后30年2P）",
+        "将死亡给付分解为前10年定期死亡保险和延期10年终身寿险",
+        "用换算函数写出给付现值和保费现值",
+        "建立等价方程并解出P"
+      ],
+      "pitfalls": [
+        "65岁缴清通常指最后一次缴费在64岁初，缴费期共40年",
+        "延期终身寿险的换算函数为M_{35}/D_{25}",
+        "合并保费现值时注意系数"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "分段给付、分段缴费的终身寿险，用换算函数表示均衡纯保费，需正确拆分给付和缴费期。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q025",
+      "primary_method_id": "ch04_g04_level_premium_commutation_functions",
+      "secondary_method_ids": [],
+      "question_type": "分段给付均衡纯保费计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "换算函数",
+        "分段给付",
+        "生存给付"
+      ],
+      "core_formula_latex": [
+        "P = 1000 \\cdot \\frac{M_{20} + 2M_{30} - M_{50} - 2M_{70} + D_{70}}{N_{20} - N_{30}}"
+      ],
+      "key_steps": [
+        "确定10年限期缴费，保费每年初缴纳",
+        "将保险责任分解为缴费期内死亡、30-50岁死亡、50-70岁死亡和70岁生存给付",
+        "用换算函数写出各段趸缴纯保费",
+        "写出保费年金现值，建立等价方程并解出P"
+      ],
+      "pitfalls": [
+        "延期定期死亡保险的换算函数为(M_{x+m} - M_{x+m+n})/D_x",
+        "生存给付用D_{70}/D_{20}表示",
+        "缴费期仅为10年，年金现值用N_{20}-N_{30}"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "包含死亡和生存分段给付的限期缴费寿险，用换算函数表示年缴纯保费，需注意各段保额不同。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch04_q026",
+      "primary_method_id": "ch04_g04_variable_insurance_premium",
+      "secondary_method_ids": [],
+      "question_type": "均衡纯保费计算（变额两全保险）",
+      "topic_tags": [
+        "均衡纯保费",
+        "变额保险",
+        "递增死亡给付",
+        "两全保险"
+      ],
+      "core_formula_latex": [
+        "P = \\frac{\\text{死亡给付精算现值} + \\text{满期给付精算现值}}{\\ddot{a}_{x:\\overline{n}|}}",
+        "100(IA)_{1:\\overline{10}|}^{1} + 1000_{10|9}A_{1}^{1} + 1000 A_{1:\\overline{19}|}^{\\ \\ 1}"
+      ],
+      "key_steps": [
+        "确定保险期间和给付结构（递增、封顶、满期）",
+        "用精算符号或换算函数写出各年死亡给付现值",
+        "加上满期生存给付现值",
+        "除以对应年金现值得到年缴纯保费"
+      ],
+      "pitfalls": [
+        "递增给付达到上限后保持上限，需正确分段表示",
+        "注意保险期间长度与满期年龄的关系（x+n）",
+        "区分死亡给付现值符号中的延期和定期部分"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将变额死亡给付与满期给付分别用精算符号或换算函数表示，再除以年金现值得到均衡纯保费。",
+      "chapter": 4
+    },
+    {
+      "question_id": "life_actuarial_ch05_q001",
+      "primary_method_id": "ch05_g01_retrospective_reserve",
+      "secondary_method_ids": [],
+      "question_type": "责任准备金计算（过去法）",
+      "topic_tags": [
+        "责任准备金",
+        "过去法",
+        "换算函数",
+        "终身寿险",
+        "定期寿险",
+        "两全保险"
+      ],
+      "core_formula_latex": [
+        "{}_t V = \\frac{P \\cdot (\\ddot{N}_x - \\ddot{N}_{x+t}) - (M_x - M_{x+t})}{D_{x+t}}"
+      ],
+      "key_steps": [
+        "根据保单类型写出年缴纯保费 P",
+        "确定过去法公式中 N 和 M 的起止年龄",
+        "代入公式计算准备金，保额非 1 时乘以保额"
+      ],
+      "pitfalls": [
+        "限期缴费或定期保险需调整 M 和 N 的下标范围",
+        "区分期初付年金符号 \\ddot{N} 与教材约定",
+        "查表时注意换算表版本"
+      ],
+      "difficulty": 3,
+      "review_priority": "high",
+      "summary": "利用过去法通用公式，将纯保费累积值与过去保险成本累积值之差除以生存调整项，得到期末准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q002",
+      "primary_method_id": "ch05_g01_reserve_from_premium_decomposition",
+      "secondary_method_ids": [],
+      "question_type": "利用保费分解计算责任准备金",
+      "topic_tags": [
+        "均衡纯保费",
+        "责任准备金",
+        "保费分解"
+      ],
+      "core_formula_latex": [
+        "P_{x} = P^{1}_{x:\\overline{n}|} + P^{\\ \\ 1}_{x:\\overline{n}|} \\cdot {}_n V_x"
+      ],
+      "key_steps": [
+        "分解两全保费为定期寿险与纯生存保险保费",
+        "写出终身寿险保费与定期、生存保费的关系",
+        "代入已知数值求解准备金"
+      ],
+      "pitfalls": [
+        "注意纯生存保险保费符号与生存趸缴保费的区别",
+        "推导中需确认保费定义均为均衡年缴纯保费"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将终身寿险保费表示为定期寿险保费与纯生存保险保费乘以目标准备金之和，直接解出准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q003",
+      "primary_method_id": "ch05_g01_reserve_recursion_fackler",
+      "secondary_method_ids": [],
+      "question_type": "利用递推公式计算责任准备金",
+      "topic_tags": [
+        "责任准备金递推",
+        "全离散准备金",
+        "Fackler递推"
+      ],
+      "core_formula_latex": [
+        "(V_k + P)(1+i) = b_{k+1} q_{x+k} + V_{k+1} p_{x+k}"
+      ],
+      "key_steps": [
+        "确定递推公式中的各变量含义",
+        "利用已知年末准备金和死亡率建立方程求均衡保费",
+        "代入目标年度递推公式求解未知准备金"
+      ],
+      "pitfalls": [
+        "最后一年末准备金 V_n 的定义需根据题目条件判断是支付前还是支付后",
+        "死亡给付 b_k 可能随年度变化，需正确对应"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "通过全离散准备金递推公式，结合已知准备金和死亡率反推均衡保费，再正向计算目标年度准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q004",
+      "primary_method_id": "ch05_g01_endowment_reserve_annuity_ratio",
+      "secondary_method_ids": [],
+      "question_type": "责任准备金计算（年金比例关系）",
+      "topic_tags": [
+        "均衡纯保费责任准备金",
+        "两全保险",
+        "年金比例"
+      ],
+      "core_formula_latex": [
+        "{}_t V_{x:\\overline{n}|} = 1 - \\frac{\\ddot a_{x+t:\\overline{n-t}|}}{\\ddot a_{x:\\overline{n}|}}"
+      ],
+      "key_steps": [
+        "写出准备金年金公式",
+        "代入已知准备金得年金比例",
+        "利用年金等式求其他比例",
+        "代入目标准备金公式求解"
+      ],
+      "pitfalls": [
+        "注意年金期限对应，确保 n-2k > 0"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用两全保险准备金年金公式，结合给定年金等式，通过比例运算求解未知准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q005",
+      "primary_method_id": "ch05_g01_fackler_reserve_mortality_backsolve",
+      "secondary_method_ids": [],
+      "question_type": "利用递推公式反推死亡率",
+      "topic_tags": [
+        "终身寿险",
+        "责任准备金递推",
+        "死亡率反推"
+      ],
+      "core_formula_latex": [
+        "(_t V + P)(1+i) = q_{x+t} S + p_{x+t} {}_{t+1}V"
+      ],
+      "key_steps": [
+        "写出递推公式",
+        "利用已知年份数据求利率 i",
+        "利用目标年份递推公式解出死亡率"
+      ],
+      "pitfalls": [
+        "注意保额、准备金、保费单位一致",
+        "递推公式中死亡赔付为保额 S"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用终身寿险责任准备金递推公式，先由已知死亡率求利率，再由利率和准备金反推未知死亡率。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q006",
+      "primary_method_id": "ch05_g01_reserve_recursion_infer_mortality",
+      "secondary_method_ids": [],
+      "question_type": "责任准备金递推反推死亡率/保费",
+      "topic_tags": [
+        "责任准备金递推",
+        "缴清保单",
+        "均衡纯保费"
+      ],
+      "core_formula_latex": [
+        "{}_{k}V = v q_{x+k} + v p_{x+k} {}_{k+1}V",
+        "P_x = \\frac{A_x}{\\ddot{a}_x} = \\frac{1}{\\ddot{a}_x} - d"
+      ],
+      "key_steps": [
+        "识别准备金符号含义及缴费期是否结束",
+        "写出缴清保单递推公式",
+        "代入已知准备金求解 q_x",
+        "利用保费公式求 P_x"
+      ],
+      "pitfalls": [
+        "区分缴费期内和缴费期结束后的递推公式",
+        "符号上标下标需按教材约定确认",
+        "P_x 通常指普通终身寿险，若险种不同需调整"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用缴清保单责任准备金的递推关系反推死亡率，再计算均衡纯保费。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q007",
+      "primary_method_id": "ch05_g01_prospective_reserve_commutation",
+      "secondary_method_ids": [],
+      "question_type": "未来法责任准备金计算（换算表）",
+      "topic_tags": [
+        "未来法",
+        "责任准备金",
+        "换算表",
+        "各种寿险"
+      ],
+      "core_formula_latex": [
+        "{}_{t}V = \\text{未来给付精算现值} - \\text{未来净保费精算现值}",
+        "\\ddot{a}_x = \\frac{N_x}{D_x},\\ A_x = \\frac{M_x}{D_x},\\ A_{x:\\overline{n}|}^1 = \\frac{M_x - M_{x+n}}{D_x},\\ A_{x:\\overline{n}|} = \\frac{M_x - M_{x+n} + D_{x+n}}{D_x}"
+      ],
+      "key_steps": [
+        "确定险种、缴费期和评估时点",
+        "写出未来法准备金公式",
+        "用换算表符号表示趸缴保费和年金",
+        "代入年龄和期间",
+        "查表计算数值"
+      ],
+      "pitfalls": [
+        "区分不同险种的准备金公式，特别是缴费期是否结束",
+        "换算表符号与利率一致",
+        "保额乘数不要遗漏"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "用未来法公式，结合换算表符号，计算各种寿险在某年末的责任准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q008",
+      "primary_method_id": "ch05_g02_reserve_for_paid_up_policy",
+      "secondary_method_ids": [],
+      "question_type": "缴清保单准备金计算",
+      "topic_tags": [
+        "责任准备金",
+        "缴清保单",
+        "换算函数"
+      ],
+      "core_formula_latex": [
+        "\\text{期初准备金} = S \\cdot A_{x+t} = S \\cdot \\frac{M_{x+t}}{D_{x+t}}",
+        "\\text{期末准备金} = S \\cdot A_{x+t+1} = S \\cdot \\frac{M_{x+t+1}}{D_{x+t+1}}",
+        "\\text{期中准备金} = \\frac{\\text{期初准备金} + \\text{期末准备金}}{2}"
+      ],
+      "key_steps": [
+        "判断保单是否已缴清（缴费期结束）",
+        "缴清后准备金等于未来保险金给付的精算现值（趸缴纯保费）",
+        "用换算函数表示趸缴纯保费",
+        "期中准备金取期初与期末准备金的算术平均"
+      ],
+      "pitfalls": [
+        "确认期初、期末对应的被保险人年龄",
+        "期中准备金定义可能因教材而异，需按教材约定确认（通常为算术平均）"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "缴清后无保费，准备金直接等于未来给付精算现值，利用换算函数表计算。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q009",
+      "primary_method_id": "ch05_g02_reserve_recursion_mortality",
+      "secondary_method_ids": [],
+      "question_type": "准备金递推公式求死亡率",
+      "topic_tags": [
+        "责任准备金",
+        "递推公式",
+        "死亡率"
+      ],
+      "core_formula_latex": [
+        "({}_kV + P)(1+i) = b_{k+1} \\cdot q_{x+k} + {}_{k+1}V \\cdot (1 - q_{x+k})"
+      ],
+      "key_steps": [
+        "确定递推公式对应的保单年度和年龄",
+        "写出完全离散准备金递推公式",
+        "代入已知的_V、P、i、b_{k+1}",
+        "利用p=1-q化简并解出q"
+      ],
+      "pitfalls": [
+        "确认死亡给付金额b_{k+1}对应正确的保单年度",
+        "注意区分_V与_V+P的关系，避免代入错误"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用完全离散准备金递推公式，代入已知条件解方程求死亡率。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q010",
+      "primary_method_id": "ch05_g02_discrete_net_premium_reserve",
+      "secondary_method_ids": [],
+      "question_type": "离散型均衡纯保费责任准备金计算",
+      "topic_tags": [
+        "均衡纯保费",
+        "责任准备金",
+        "终身寿险",
+        "半年缴保费",
+        "缴费期限制"
+      ],
+      "core_formula_latex": [
+        "{}_{t}V_{x} = A_{x+t} - P_{x} \\ddot a_{x+t}",
+        "P_{x} = \\frac{A_{x}}{\\ddot a_{x}}",
+        "A_{x} = 1 - d \\ddot a_{x}",
+        "\\ddot a_{x}^{(m)} = \\alpha(m) \\ddot a_{x} - \\beta(m)",
+        "{}_{t}^{h}V_{x} = A_{x+t} \\quad (t \\ge h)"
+      ],
+      "key_steps": [
+        "识别保险类型和缴费方式",
+        "计算均衡纯保费 P",
+        "利用年金值或近似公式计算所需年金",
+        "代入准备金公式 V = A_{x+t} - P \\cdot \\ddot a_{x+t}",
+        "若缴费期已结束，准备金直接等于未来给付现值 A_{x+t}"
+      ],
+      "pitfalls": [
+        "区分不同缴费频率的年金近似公式",
+        "注意缴费期结束后的准备金简化",
+        "单位换算：题目常给出每千元面额的值，需除以1000"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用均衡纯保费与年金的关系，计算离散型终身寿险在不同缴费方式和缴费期下的责任准备金。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q011",
+      "primary_method_id": "ch05_g02_continuous_net_premium_reserve_annuity",
+      "secondary_method_ids": [],
+      "question_type": "连续型均衡纯保费责任准备金与年金换算",
+      "topic_tags": [
+        "连续型终身寿险",
+        "均衡纯保费",
+        "责任准备金",
+        "年金换算"
+      ],
+      "core_formula_latex": [
+        "{}_{t}\\bar V(\\bar A_x) = \\bar A_{x+t} - \\bar P(\\bar A_x) \\bar a_{x+t}",
+        "\\bar A_{x+t} = 1 - \\delta \\bar a_{x+t}",
+        "\\bar a_{x+t} = \\frac{1 - {}_{t}\\bar V(\\bar A_x)}{\\delta + \\bar P(\\bar A_x)}"
+      ],
+      "key_steps": [
+        "写出连续型准备金基本公式",
+        "利用常数利息力下保额与年金的关系",
+        "代入已知数值解出目标年金"
+      ],
+      "pitfalls": [
+        "注意题目给出的数值通常是每千元面额，需先转换为单位1的值",
+        "区分连续型符号与离散型符号"
+      ],
+      "difficulty": 2,
+      "review_priority": "low",
+      "summary": "利用连续型终身寿险准备金公式和保额-年金关系，由已知准备金和保费反推年金现值。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q012",
+      "primary_method_id": "ch05_g02_reserve_recursion_mortality",
+      "secondary_method_ids": [],
+      "question_type": "利用准备金递推公式反推死亡率",
+      "topic_tags": [
+        "责任准备金",
+        "完全离散两全保险",
+        "死亡率反推"
+      ],
+      "core_formula_latex": [
+        "(_kV + P)(1+i) = b \\cdot q_{x+k} + {}_{k+1}V \\cdot (1 - q_{x+k})"
+      ],
+      "key_steps": [
+        "写出完全离散准备金递推公式",
+        "代入已知的保费、利率、保额和准备金",
+        "解关于 q_x 的线性方程"
+      ],
+      "pitfalls": [
+        "区分不同保单年度的死亡率 q_{x+k}",
+        "最后一年递推可能恒成立，无法确定该年死亡率"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "利用 Fackler 递推公式，从已知准备金和保费反推死亡率。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q013",
+      "primary_method_id": "ch05_g02_continuous_annuity_loss_moments",
+      "secondary_method_ids": [],
+      "question_type": "连续型生存年金未来损失的期望与方差",
+      "topic_tags": [
+        "未来损失随机变量",
+        "连续年金",
+        "精算现值",
+        "方差"
+      ],
+      "core_formula_latex": [
+        "E[{}_tL] = \\bar{a}_{x+t:\\overline{n-t}|}",
+        "\\operatorname{Var}[{}_tL] = \\frac{^2\\bar{A}_{x+t:\\overline{n-t}|} - (\\bar{A}_{x+t:\\overline{n-t}|})^2}{\\delta^2}"
+      ],
+      "key_steps": [
+        "将未来损失表达为剩余寿命 U 的函数",
+        "识别期望为定期生存年金趸缴纯保费",
+        "利用两全保险趸缴纯保费和加倍利息力计算方差"
+      ],
+      "pitfalls": [
+        "注意连续年金符号与离散年金的区别",
+        "利息力加倍时符号 ^2\\bar{A} 的含义需按教材约定确认"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "将未来损失写成剩余寿命的函数，用精算现值符号表示期望和方差。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q014",
+      "primary_method_id": "ch05_g02_future_reserve_single_premium",
+      "secondary_method_ids": [],
+      "question_type": "未来法准备金公式（趸缴保费）",
+      "topic_tags": [
+        "责任准备金",
+        "未来法",
+        "趸缴保费",
+        "定期寿险"
+      ],
+      "core_formula_latex": [
+        "{}_t V(\\bar{A}_{x:\\overline{n|}}^1) = \\bar{A}_{x+t:\\overline{n-t|}}^1"
+      ],
+      "key_steps": [
+        "识别趸缴保费，未来保费为0",
+        "确定剩余保险期间",
+        "写出剩余期间趸缴纯保费符号或积分"
+      ],
+      "pitfalls": [
+        "区分连续型与离散型符号",
+        "注意年龄和剩余期限的对应"
+      ],
+      "difficulty": 2,
+      "review_priority": "medium",
+      "summary": "趸缴保费下未来法准备金等于剩余保险期间趸缴纯保费。",
+      "chapter": 5
+    },
+    {
+      "question_id": "life_actuarial_ch05_q015",
+      "chapter": 5,
+      "primary_method_id": "ch05_g03_future_reserve_level_premium_segmented",
+      "secondary_method_ids": [],
+      "question_type": "未来法准备金计算（均衡保费分段给付）",
+      "topic_tags": [
+        "责任准备金",
+        "未来法",
+        "均衡保费",
+        "分段给付",
+        "终身寿险"
+      ],
+      "core_formula_latex": [
+        "{}_t V = \\text{未来给付现值} - \\text{未来保费现值}",
+        "\\text{给付现值} = \\sum \\text{各段给付现值}",
+        "\\pi = \\frac{\\text{签单时给付现值}}{\\ddot{a}_x}"
+      ],
+      "key_steps": [
+        "计算均衡保费：签单时给付现值等于保费现值",
+        "计算未来给付现值：按剩余期间分段",
+        "计算未来保费现值",
+        "求差得准备金"
+      ],
+      "pitfalls": [
+        "分段给付要正确拆分，注意延期和定期组合",
+        "精算符号换算时注意生命表与利率一致",
+        "全离散型用ddot{a}和A，连续型用bar{a}和bar{A}"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "均衡保费下分段给付终身寿险准备金计算，需先求保费再求未来给付与保费现值差。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q016",
+      "chapter": 5,
+      "primary_method_id": "ch05_g04_constant_force_annuity_premium_reserve",
+      "secondary_method_ids": [],
+      "question_type": "延期生存年金的均衡纯保费与责任准备金计算",
+      "topic_tags": [
+        "延期生存年金",
+        "均衡纯保费",
+        "责任准备金",
+        "常数死亡力"
+      ],
+      "core_formula_latex": [
+        "\\bar a_x = \\frac{1}{\\mu+\\delta}",
+        "{}_n E_x = e^{-(\\mu+\\delta)n}",
+        "{}_{n|}\\bar a_x = \\frac{e^{-(\\mu+\\delta)n}}{\\mu+\\delta}",
+        "\\bar P({}_{n|}\\bar a_x) = \\frac{{}_{n|}\\bar a_x}{\\bar a_{x:\\overline{n|}}}",
+        "_t V = {}_{n-t|}\\bar a_{x+t} - \\bar P \\cdot \\bar a_{x+t:\\overline{n-t|}}"
+      ],
+      "key_steps": [
+        "识别常数死亡力和利息力",
+        "写出连续年金和贴现因子",
+        "计算均衡纯保费率",
+        "用前瞻法计算责任准备金"
+      ],
+      "pitfalls": [
+        "注意延期期限与缴费期限一致",
+        "责任准备金计算时确认剩余期限和当前年龄",
+        "常数死亡力下均衡纯保费率与签单年龄无关"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "在常数死亡力假设下，利用指数函数简化精算现值，计算延期生存年金的均衡纯保费和责任准备金。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q017",
+      "chapter": 5,
+      "primary_method_id": "ch05_g05_modified_contract_reserve_recursion",
+      "secondary_method_ids": [],
+      "question_type": "修正保费/给付的两全保险责任准备金递推",
+      "topic_tags": [
+        "两全保险",
+        "责任准备金递推",
+        "修正保费",
+        "修正给付"
+      ],
+      "core_formula_latex": [
+        "{}_t V + \\pi_t = v q_{x+t} b_{t+1} + v p_{x+t} {}_{t+1}V",
+        "v = \\frac{1}{1+i}",
+        "p_{x+t} = 1 - q_{x+t}"
+      ],
+      "key_steps": [
+        "明确各年保费和给付",
+        "列出递推公式",
+        "从已知准备金或终值出发递推",
+        "解未知保费或给付"
+      ],
+      "pitfalls": [
+        "注意保费索引k与死亡给付索引k+1的对应",
+        "区分标准均衡保费与实际保费",
+        "递推方向：已知后一年准备金可求前一年保费或给付"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "利用全离散准备金递推公式，处理非均衡保费或给付下的责任准备金计算及未知量求解。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q018",
+      "chapter": 5,
+      "primary_method_id": "ch05_g06_reserve_future_method",
+      "secondary_method_ids": [
+        "ch05_g06_reserve_with_mthly_premiums",
+        "ch05_g06_reserve_semi_continuous_vs_fully_discrete"
+      ],
+      "question_type": "准备金计算（不同缴费频率与给付假设）",
+      "topic_tags": [
+        "均衡纯保费准备金",
+        "缴费频率调整",
+        "全离散与半连续"
+      ],
+      "core_formula_latex": [
+        "_{10}V = 10000 \\cdot A_{60:\\overline{10}|} - P \\cdot \\ddot{a}_{60:\\overline{10}|}^{(4)}",
+        "P \\cdot \\ddot{a}_{50:\\overline{20}|}^{(4)} = 10000 \\cdot A_{50:\\overline{20}|}",
+        "\\bar{A}_{x:\\overline{n}|} = \\frac{i}{\\delta} A_{x:\\overline{n}|}^{1} + A_{x:\\overline{n}|}^{\\quad 1}"
+      ],
+      "key_steps": [
+        "确定剩余保险和缴费期限",
+        "计算趸缴纯保费（全离散或半连续）",
+        "计算按季缴费的年金现值",
+        "求年缴均衡纯保费",
+        "代入未来法准备金公式"
+      ],
+      "pitfalls": [
+        "区分全离散与半连续的死亡给付假设",
+        "缴费频率调整时注意年金符号a^{(m)}",
+        "UDD假设下Ā与A的转换"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "计算按季缴费的20年两全保险第10年末准备金，需结合缴费频率调整和死亡给付假设（全离散/半连续），利用UDD近似。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q019",
+      "chapter": 5,
+      "primary_method_id": "ch05_g07_reserve_continuous_whole_life",
+      "secondary_method_ids": [
+        "ch05_g07_reserve_future_method"
+      ],
+      "question_type": "连续型终身寿险准备金计算",
+      "topic_tags": [
+        "连续型寿险",
+        "均衡纯保费准备金",
+        "De Moivre律"
+      ],
+      "core_formula_latex": [
+        "\\bar{}_{t}V(\\bar{A}_{x}) = \\bar{A}_{x+t} - \\bar{P}(\\bar{A}_{x}) \\cdot \\bar{a}_{x+t}",
+        "\\bar{P}(\\bar{A}_{x}) = \\frac{\\bar{A}_{x}}{\\bar{a}_{x}}",
+        "\\bar{A}_{x} = 1 - \\delta \\cdot \\bar{a}_{x}"
+      ],
+      "key_steps": [
+        "由给定年金值和δ求Ā_x",
+        "计算均衡纯保费",
+        "计算Ā_{x+t}",
+        "代入准备金公式"
+      ],
+      "pitfalls": [
+        "注意题目中准备金符号可能遗漏下标t，需根据上下文推断",
+        "δ = ln(1+i) 计算精确度"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用连续年金与趸缴保费的关系，计算连续型终身寿险第10年末准备金。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q020",
+      "chapter": 5,
+      "primary_method_id": "ch05_g08_reserve_recursion_net_amount_at_risk",
+      "secondary_method_ids": [],
+      "question_type": "责任准备金计算",
+      "topic_tags": [
+        "完全离散终身寿险",
+        "递推公式",
+        "净风险额",
+        "期初与期末准备金"
+      ],
+      "core_formula_latex": [
+        "({}_{9}V+P)(1+i)=b\\,q_{x+9}+{}_{10}V\\,(1-q_{x+9})",
+        "b-{}_{10}V=872",
+        "{}_{9}V+P=343"
+      ],
+      "key_steps": [
+        "利用递推公式求_{10}V",
+        "求保险金额b",
+        "求均衡纯保费P",
+        "求_{9}V=343-P"
+      ],
+      "pitfalls": [
+        "期初准备金是_{9}V+P还是_{10}V+P需确认，本题为期初第10年即_{9}V+P",
+        "净风险额对应期末准备金_{10}V"
+      ],
+      "difficulty": 3,
+      "review_priority": "medium",
+      "summary": "利用递推公式和净风险额定义，结合已知期初准备金和保费公式，求解目标期末准备金。"
+    },
+    {
+      "question_id": "life_actuarial_ch05_q021",
+      "chapter": 5,
+      "primary_method_id": "ch05_g09_loss_variance_decomposition_martingale",
+      "secondary_method_ids": [
+        "ch05_g09_udd_reserve_difference_ratio"
+      ],
+      "question_type": "责任准备金证明",
+      "topic_tags": [
+        "亏损方差分解",
+        "鞅差序列",
+        "UDD 假设",
+        "缴费频率",
+        "准备金差"
+      ],
+      "core_formula_latex": [
+        "L=\\sum v^h\\Lambda_h",
+        "\\mathrm{E}[\\Lambda_h]=0",
+        "\\frac{{}_{5}V^{(4)}_{30:\\overline{20}|}-{}_{5}V_{30:\\overline{20}|}}{{}^{20}_{5}V^{(4)}_{30}-{}^{20}_{5}V_{30}} = \\frac{A_{30:\\overline{20}|}}{A_{30}}"
+      ],
+      "key_steps": [
+        "第一问：证明 Λ_h 期望为零且互不相关，从而方差可加",
+        "第二问：利用 UDD 下准备金差与趸缴保费的比例关系，化简得证"
+      ],
+      "pitfalls": [
+        "第一问需注意条件期望和协方差为零的严格证明",
+        "第二问符号 ^{20}_5V 可能表示 20 年限期缴费，需按教材确认"
+      ],
+      "difficulty": 4,
+      "review_priority": "high",
+      "summary": "证明亏损方差分解为各年分摊亏损方差现值之和；在 UDD 下证明不同缴费频率准备金差之比等于趸缴纯保费之比。"
+    }
+  ]
+}
