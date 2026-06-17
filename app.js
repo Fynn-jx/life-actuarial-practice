@@ -49,6 +49,29 @@ let filteredQuestions = [];
 let practiceState = loadPracticeState();
 let methodLookup = null;
 let mathRetry = 0;
+let testMode = loadTestMode();
+let shuffledOrder = [];
+
+function loadTestMode() {
+  try {
+    return JSON.parse(localStorage.getItem("life-actuarial-practice-testmode") || "false");
+  } catch {
+    return false;
+  }
+}
+
+function saveTestMode() {
+  localStorage.setItem("life-actuarial-practice-testmode", JSON.stringify(testMode));
+}
+
+function generateShuffledOrder() {
+  const ids = questions.map((q) => q.id);
+  for (let i = ids.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [ids[i], ids[j]] = [ids[j], ids[i]];
+  }
+  return ids;
+}
 
 window.queueMathTypeset = () => {
   mathRetry = 0;
@@ -73,8 +96,12 @@ async function init() {
     const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
     ui.selectedId = questions.some((q) => q.id === hashId) ? hashId : questions[0]?.id;
     const initialQuestion = getSelectedQuestion();
-    if (initialQuestion) {
+    if (initialQuestion && !testMode) {
       filters.chapter = String(initialQuestion.chapter);
+    }
+    if (testMode) {
+      shuffledOrder = generateShuffledOrder();
+      updateModeSwitchUI();
     }
     els.subtitle.textContent = `${questions.length} 道题 · 第 1-5 章`;
     renderAll();
@@ -138,6 +165,29 @@ function bindEvents() {
       selectQuestion(id);
     }
   });
+
+  document.querySelectorAll(".mode-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.mode;
+      if (mode === "chapter" && testMode) {
+        testMode = false;
+        shuffledOrder = [];
+        saveTestMode();
+        updateModeSwitchUI();
+        filters.chapter = "all";
+        const question = getSelectedQuestion();
+        if (question) filters.chapter = String(question.chapter);
+        renderAll();
+      } else if (mode === "test" && !testMode) {
+        testMode = true;
+        shuffledOrder = generateShuffledOrder();
+        saveTestMode();
+        updateModeSwitchUI();
+        filters.chapter = "all";
+        renderAll();
+      }
+    });
+  });
 }
 
 function normalizeQuestions(items) {
@@ -166,6 +216,11 @@ function renderAll(options = {}) {
 }
 
 function renderLibrary() {
+  if (testMode) {
+    renderTestModeLibrary();
+    return;
+  }
+
   const chapters = Array.from(new Set(questions.map((q) => q.chapter))).map((chapter) => {
     const chapterQuestions = questions.filter((q) => q.chapter === chapter);
     return {
@@ -189,6 +244,38 @@ function renderLibrary() {
       } else {
         filters[button.dataset.filterKind] = button.dataset.filterValue;
       }
+      renderAll({ keepReveal: true });
+    });
+  });
+
+  els.chapterFilters.querySelectorAll("[data-question-id]").forEach((button) => {
+    button.addEventListener("click", () => selectQuestion(button.dataset.questionId));
+  });
+}
+
+function renderTestModeLibrary() {
+  const total = questions.length;
+  const statuses = [
+    { value: "all", label: `全部 ${total}` },
+    { value: "new", label: `未做 ${questions.filter((q) => (getQuestionState(q.id).status || "new") === "new").length}` },
+    { value: "blur", label: `模糊 ${questions.filter((q) => getQuestionState(q.id).status === "blur").length}` },
+    { value: "mastered", label: `掌握 ${questions.filter((q) => getQuestionState(q.id).status === "mastered").length}` },
+    { value: "favorite", label: `收藏 ${questions.filter((q) => getQuestionState(q.id).favorite).length}` }
+  ];
+
+  els.chapterFilters.innerHTML = `
+    <div class="test-mode-attribution">Mentioned by Haaaa</div>
+    <div class="test-mode-status-row">
+      ${statuses.map((s) => filterChip("status", s.value, s.label, filters.status === s.value)).join("")}
+    </div>
+    <div class="test-mode-question-list">
+      ${filteredQuestions.length ? renderQuestionRows(filteredQuestions) : `<div class="empty-state">没有匹配的题目</div>`}
+    </div>
+  `;
+
+  els.chapterFilters.querySelectorAll("[data-filter-kind]").forEach((button) => {
+    button.addEventListener("click", () => {
+      filters[button.dataset.filterKind] = button.dataset.filterValue;
       renderAll({ keepReveal: true });
     });
   });
@@ -256,10 +343,21 @@ function countChapterStatus(chapterQuestions, status) {
   }).length;
 }
 
+function updateModeSwitchUI() {
+  document.querySelectorAll(".mode-btn").forEach((btn) => {
+    const isActive = (btn.dataset.mode === "test" && testMode) || (btn.dataset.mode === "chapter" && !testMode);
+    btn.classList.toggle("active", isActive);
+  });
+  const filterTitle = document.querySelector(".filter-title");
+  if (filterTitle) {
+    filterTitle.textContent = testMode ? "筛选" : "章节";
+  }
+}
+
 function getFilteredQuestions() {
   const term = filters.search.toLowerCase();
-  return questions.filter((question) => {
-    if (filters.chapter !== "all" && String(question.chapter) !== filters.chapter) return false;
+  let result = questions.filter((question) => {
+    if (!testMode && filters.chapter !== "all" && String(question.chapter) !== filters.chapter) return false;
     const state = getQuestionState(question.id);
     const status = state.status || "new";
     if (filters.status === "favorite" && !state.favorite) return false;
@@ -280,6 +378,17 @@ function getFilteredQuestions() {
       .toLowerCase();
     return haystack.includes(term);
   });
+
+  if (testMode && shuffledOrder.length) {
+    const orderMap = new Map(shuffledOrder.map((id, idx) => [id, idx]));
+    result.sort((a, b) => {
+      const ia = orderMap.get(a.id) ?? Infinity;
+      const ib = orderMap.get(b.id) ?? Infinity;
+      return ia - ib;
+    });
+  }
+
+  return result;
 }
 
 function renderQuestionRows(items) {
@@ -485,7 +594,7 @@ function moveSelection(direction) {
 function selectQuestion(id) {
   ui.selectedId = id;
   const question = getSelectedQuestion();
-  if (question) {
+  if (question && !testMode) {
     filters.chapter = String(question.chapter);
   }
   ui.revealReason = false;

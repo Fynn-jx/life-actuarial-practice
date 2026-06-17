@@ -218,10 +218,46 @@ h1 {
 
 .sidebar {
   display: grid;
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   padding: 14px 16px 18px 20px;
   background: rgba(249, 247, 242, 0.88);
   overflow: hidden;
+}
+
+.mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  margin-bottom: 14px;
+  padding: 4px;
+  border: 1px solid rgba(222, 216, 206, 0.9);
+  border-radius: 14px;
+  background: rgba(233, 226, 220, 0.42);
+}
+
+.mode-btn {
+  min-height: 34px;
+  padding: 7px 8px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 760;
+  text-align: center;
+  transition: background 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.mode-btn:hover {
+  color: var(--text);
+  background: rgba(255, 254, 251, 0.55);
+}
+
+.mode-btn.active {
+  border-color: rgba(211, 199, 182, 0.85);
+  background: rgba(255, 254, 251, 0.92);
+  color: #443a30;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.78), 0 8px 18px rgba(98, 85, 68, 0.06);
 }
 
 .filter-block {
@@ -429,6 +465,53 @@ h1 {
   max-height: 480px;
   overflow: auto;
   padding-right: 2px;
+}
+
+.test-mode-status-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 3px;
+  margin-bottom: 10px;
+  padding: 0 2px;
+}
+
+.test-mode-attribution {
+  margin-bottom: 8px;
+  padding: 0 2px;
+  color: var(--muted-2);
+  font-size: 10px;
+  font-weight: 520;
+  font-style: italic;
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+.test-mode-status-row .chip {
+  min-width: 0;
+  min-height: 28px;
+  padding: 5px 3px;
+  border-color: rgba(222, 216, 206, 0.78);
+  background: rgba(255, 254, 251, 0.8);
+  font-size: 11px;
+  font-weight: 760;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.test-mode-status-row .chip.active {
+  border-color: #d1c4b2;
+  background: #e9e4dc;
+  color: #504437;
+}
+
+.test-mode-question-list {
+  display: grid;
+  gap: 4px;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+  flex: 1;
 }
 
 .question-list-wrap {
