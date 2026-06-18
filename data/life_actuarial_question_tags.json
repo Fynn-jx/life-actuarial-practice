@@ -842,8 +842,8 @@
         "关系式"
       ],
       "core_formula_latex": [
-        "A_x = A_{x:\\overline{n}|}^{1} + {}_nE_x \\cdot A_{x+n}",
-        "A_{x:\\overline{n}|} = A_{x:\\overline{n}|}^{1} + {}_nE_x"
+        "A_x = A^{1}_{x:\\overline{n}|} + {}_nE_x \\cdot A_{x+n}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}{}^{1}"
       ],
       "key_steps": [
         "识别已知保费符号含义",
@@ -852,8 +852,8 @@
         "联立方程求解未知保费"
       ],
       "pitfalls": [
-        "区分A_{x:\\overline{n}|}^{1}（定期）与A_{x:\\overline{n}|}^{\\ \\ 1}（生存）的符号差异",
-        "注意{}_nE_x = A_{x:\\overline{n}|}^{\\ \\ 1}",
+        "区分A^{1}_{x:\\overline{n}|}（定期寿险）与A_{x:\\overline{n}|}{}^{1}（纯生存保险）的上标位置",
+        "注意{}_nE_x = A_{x:\\overline{n}|}{}^{1}",
         "确认教材符号约定"
       ],
       "difficulty": 2,
@@ -873,8 +873,8 @@
         "定期生存保险"
       ],
       "core_formula_latex": [
-        "A_{x:\\overline{n}|}^{1} = \\sum_{k=0}^{n-1} v^{k+1} {}_{k|}q_x",
-        "A_{x:\\overline{n}|}^{\\ \\ 1} = v^n {}_n p_x"
+        "A^{1}_{x:\\overline{n}|} = \\sum_{k=0}^{n-1} v^{k+1} {}_{k|}q_x",
+        "A_{x:\\overline{n}|}{}^{1} = v^n {}_n p_x"
       ],
       "key_steps": [
         "识别保险类型（死亡/生存）",
@@ -2118,7 +2118,7 @@
       ],
       "core_formula_latex": [
         "P_{x:\\overline{n}|} = \\frac{A_{x:\\overline{n}|}}{\\ddot{a}_{x:\\overline{n}|}}",
-        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}^{1}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}{}^{1}",
         "{}_{n}P_{x} = \\frac{A_{x}}{\\ddot{a}_{x:\\overline{n}|}}"
       ],
       "key_steps": [
@@ -2128,7 +2128,7 @@
         "解出目标保费"
       ],
       "pitfalls": [
-        "区分P_{x:\\overline{n}|}, P^{1}_{x:\\overline{n}|}, P_{x:\\overline{n}|}^{1}, {}_{n}P_{x}等符号含义",
+        "区分P_{x:\\overline{n}|}, P^{1}_{x:\\overline{n}|}, P_{x:\\overline{n}|}{}^{1}, {}_{n}P_{x}等符号含义",
         "注意缴费期与保险期的对应关系"
       ],
       "difficulty": 3,
@@ -2173,13 +2173,15 @@
       "topic_tags": [
         "均衡纯保费",
         "两全保险",
-        "延期终身寿险",
+        "限期缴费终身寿险",
+        "纯生存保险",
         "保费关系"
       ],
       "core_formula_latex": [
         "P_{x:\\overline{n}|} = \\frac{A_{x:\\overline{n}|}}{\\ddot{a}_{x:\\overline{n}|}}",
         "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + {}_n E_x",
-        "{}_{n}P_x = \\frac{{}_n E_x A_{x+n}}{\\ddot{a}_{x:\\overline{n}|}}"
+        "{}_{n}P_x = \\frac{A_x}{\\ddot{a}_{x:\\overline{n}|}} = \\frac{A^{1}_{x:\\overline{n}|} + {}_n E_x A_{x+n}}{\\ddot{a}_{x:\\overline{n}|}}",
+        "P_{x:\\overline{n}|}{}^{1} = \\frac{{}_n E_x}{\\ddot{a}_{x:\\overline{n}|}}"
       ],
       "key_steps": [
         "写出各保费的定义式",
@@ -2188,8 +2190,8 @@
         "解释经济含义"
       ],
       "pitfalls": [
-        "注意符号约定：nP_x通常为n年延期终身寿险保费，缴费期n年",
-        "区分生存保险趸缴保费nE_x与A^{1}_{x:\\overline{n}|}"
+        "注意符号约定：{}_{n}P_x 为 n 年限期缴费终身寿险保费，不是 n 年延期终身寿险保费",
+        "区分纯生存保险保费 P_{x:\\overline{n}|}{}^{1} 与定期寿险保费 P^{1}_{x:\\overline{n}|}"
       ],
       "difficulty": 3,
       "review_priority": "medium",

@@ -845,7 +845,7 @@
       ],
       "recognition_cues": [
         "给出A_x, A_{x+n}, A_{x:\\overline{n}|}等符号的数值",
-        "要求计算A_{x:\\overline{n}|}^{1}或{}_nE_x"
+        "要求计算A^{1}_{x:\\overline{n}|}或A_{x:\\overline{n}|}{}^{1}"
       ],
       "prerequisites": [
         "熟悉各种保险符号",
@@ -854,17 +854,18 @@
       "core_idea": "利用终身寿险、两全保险、定期寿险、生存保险之间的线性关系式联立求解。",
       "step_template": [
         "识别已知符号的含义",
-        "写出关系式：A_x = A_{x:\\overline{n}|}^{1} + {}_nE_x A_{x+n}",
-        "写出关系式：A_{x:\\overline{n}|} = A_{x:\\overline{n}|}^{1} + {}_nE_x",
+        "写出关系式：A_x = A^{1}_{x:\\overline{n}|} + {}_nE_x A_{x+n}",
+        "写出关系式：A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}{}^{1}",
         "代入已知数值，解方程组"
       ],
       "key_formulas_latex": [
-        "A_x = A_{x:\\overline{n}|}^{1} + {}_nE_x \\cdot A_{x+n}",
-        "A_{x:\\overline{n}|} = A_{x:\\overline{n}|}^{1} + {}_nE_x"
+        "A_x = A^{1}_{x:\\overline{n}|} + {}_nE_x \\cdot A_{x+n}",
+        "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + A_{x:\\overline{n}|}{}^{1}",
+        "{}_nE_x = A_{x:\\overline{n}|}{}^{1}"
       ],
       "pitfalls": [
-        "区分A_{x:\\overline{n}|}^{1}（定期）与A_{x:\\overline{n}|}^{\\ \\ 1}（生存）的符号差异",
-        "注意{}_nE_x = A_{x:\\overline{n}|}^{\\ \\ 1}"
+        "区分A^{1}_{x:\\overline{n}|}（定期寿险）与A_{x:\\overline{n}|}{}^{1}（纯生存保险）的上标位置",
+        "注意{}_nE_x = A_{x:\\overline{n}|}{}^{1}"
       ],
       "related_method_ids": [
         "ch02_g01_term_life_net_single_premium"
@@ -2186,6 +2187,7 @@
       "core_idea": "从保费定义出发，利用趸缴保费和年金关系进行代数推导或建立方程求解。",
       "step_template": [
         "写出各保费的定义式",
+        "先判定符号含义，特别是{}_{n}P_x表示限期缴费终身寿险年缴纯保费",
         "利用关系式（如A_{x:n}=A^1+_nE_x, 1=dä+A）",
         "代入化简或解方程",
         "必要时解释经济含义"
@@ -2194,11 +2196,13 @@
         "P = \\frac{A}{\\ddot{a}}",
         "A_{x:\\overline{n}|} = A^{1}_{x:\\overline{n}|} + {}_n E_x",
         "1 = d\\ddot{a} + A",
+        "{}_{n}P_x = \\frac{A_x}{\\ddot{a}_{x:\\overline{n}|}}",
+        "P_{x:\\overline{n}|}{}^{1} = \\frac{{}_n E_x}{\\ddot{a}_{x:\\overline{n}|}}",
         "{}_{n|}A_x = {}_n E_x A_{x+n}"
       ],
       "pitfalls": [
-        "注意符号约定，如nP_x的缴费期和保险期",
-        "区分生存保险趸缴保费nE_x与A^{1}"
+        "注意符号约定：{}_{n}P_x表示n年限期缴费终身寿险保费，不是延期终身寿险保费",
+        "区分纯生存保险保费P_{x:\\overline{n}|}{}^{1}与定期寿险保费P^{1}_{x:\\overline{n}|}"
       ],
       "related_method_ids": [],
       "example_question_ids": [
