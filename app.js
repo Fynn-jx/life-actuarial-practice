@@ -7,6 +7,7 @@ const METHOD_CARDS_URL = new URL("data/life_actuarial_method_cards.json", APP_BA
 const QUESTION_TAGS_URL = new URL("data/life_actuarial_question_tags.json", APP_BASE_URL).href;
 const STORAGE_KEY = "life-actuarial-practice-state-v1";
 const LAYOUT_STORAGE_KEY = "life-actuarial-practice-layout-v1";
+const TEST_GROUP_STORAGE_KEY = "life-actuarial-practice-test-group-v1";
 
 const els = {
   appShell: document.querySelector("#appShell"),
@@ -59,6 +60,7 @@ let methodLookup = null;
 let mathRetry = 0;
 let testMode = loadTestMode();
 let shuffledOrder = [];
+let currentTestGroupIndex = loadTestGroupIndex();
 
 function loadTestMode() {
   try {
@@ -70,6 +72,19 @@ function loadTestMode() {
 
 function saveTestMode() {
   localStorage.setItem("life-actuarial-practice-testmode", JSON.stringify(testMode));
+}
+
+function loadTestGroupIndex() {
+  try {
+    const stored = JSON.parse(localStorage.getItem(TEST_GROUP_STORAGE_KEY) || "0");
+    return window.TestModeOrder?.normalizeGroupIndex(stored) || 0;
+  } catch {
+    return 0;
+  }
+}
+
+function saveTestGroupIndex() {
+  localStorage.setItem(TEST_GROUP_STORAGE_KEY, JSON.stringify(currentTestGroupIndex));
 }
 
 function loadLayoutState() {
@@ -133,11 +148,7 @@ function updatePanelButton(button, collapsed, label) {
 
 function generateShuffledOrder() {
   const ids = questions.map((q) => q.id);
-  for (let i = ids.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [ids[i], ids[j]] = [ids[j], ids[i]];
-  }
-  return ids;
+  return window.TestModeOrder?.buildTestOrder(ids, currentTestGroupIndex) || ids;
 }
 
 window.queueMathTypeset = () => {
@@ -161,14 +172,18 @@ async function init() {
       tagPayload?.question_tags || []
     );
     const hashId = decodeURIComponent(window.location.hash.replace(/^#/, ""));
-    ui.selectedId = questions.some((q) => q.id === hashId) ? hashId : questions[0]?.id;
+    const hasHashQuestion = questions.some((q) => q.id === hashId);
+    ui.selectedId = hasHashQuestion ? hashId : questions[0]?.id;
+    if (testMode) {
+      shuffledOrder = generateShuffledOrder();
+      if (!hasHashQuestion && shuffledOrder.length) {
+        ui.selectedId = shuffledOrder[0];
+      }
+      updateModeSwitchUI();
+    }
     const initialQuestion = getSelectedQuestion();
     if (initialQuestion && !testMode) {
       filters.chapter = String(initialQuestion.chapter);
-    }
-    if (testMode) {
-      shuffledOrder = generateShuffledOrder();
-      updateModeSwitchUI();
     }
     els.subtitle.textContent = `${questions.length} 道题 · 第 1-5 章`;
     renderAll();
@@ -257,6 +272,9 @@ function bindEvents() {
       } else if (mode === "test" && !testMode) {
         testMode = true;
         shuffledOrder = generateShuffledOrder();
+        if (shuffledOrder.length) {
+          ui.selectedId = shuffledOrder[0];
+        }
         saveTestMode();
         updateModeSwitchUI();
         filters.chapter = "all";
@@ -343,6 +361,13 @@ function renderTestModeLibrary() {
   ];
 
   els.chapterFilters.innerHTML = `
+    <div class="test-mode-toolbar">
+      <div class="test-group-meta">
+        <span>当前随机组</span>
+        <strong>${escapeHtml(window.TestModeOrder?.getGroupLabel(currentTestGroupIndex) || "第 1/5 组")}</strong>
+      </div>
+      <button type="button" class="ghost-btn test-group-btn" data-test-group-action="next">换一组</button>
+    </div>
     <div class="test-mode-attribution">Mentioned by Haaaa</div>
     <div class="test-mode-status-row">
       ${statuses.map((s) => filterChip("status", s.value, s.label, filters.status === s.value)).join("")}
@@ -357,6 +382,16 @@ function renderTestModeLibrary() {
       filters[button.dataset.filterKind] = button.dataset.filterValue;
       renderAll({ keepReveal: true });
     });
+  });
+
+  els.chapterFilters.querySelector("[data-test-group-action]")?.addEventListener("click", () => {
+    currentTestGroupIndex = window.TestModeOrder?.getNextGroupIndex(currentTestGroupIndex) || 0;
+    saveTestGroupIndex();
+    shuffledOrder = generateShuffledOrder();
+    if (shuffledOrder.length) {
+      ui.selectedId = shuffledOrder[0];
+    }
+    renderAll();
   });
 
   els.chapterFilters.querySelectorAll("[data-question-id]").forEach((button) => {

@@ -541,6 +541,42 @@ h1 {
   padding-right: 2px;
 }
 
+.test-mode-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+
+.test-group-meta {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+.test-group-meta span {
+  color: var(--muted-2);
+  font-size: 10px;
+  font-weight: 720;
+}
+
+.test-group-meta strong {
+  overflow: hidden;
+  color: #4f4538;
+  font-size: 13px;
+  font-weight: 850;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.test-group-btn {
+  min-height: 30px;
+  padding: 5px 9px;
+  white-space: nowrap;
+}
+
 .test-mode-status-row {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
