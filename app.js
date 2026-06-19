@@ -6,8 +6,10 @@ const DATA_URL = new URL("data/life_actuarial_exercises_ch01_ch05_solutions_deep
 const METHOD_CARDS_URL = new URL("data/life_actuarial_method_cards.json", APP_BASE_URL).href;
 const QUESTION_TAGS_URL = new URL("data/life_actuarial_question_tags.json", APP_BASE_URL).href;
 const STORAGE_KEY = "life-actuarial-practice-state-v1";
+const LAYOUT_STORAGE_KEY = "life-actuarial-practice-layout-v1";
 
 const els = {
+  appShell: document.querySelector("#appShell"),
   subtitle: document.querySelector("#subtitle"),
   searchInput: document.querySelector("#searchInput"),
   summaryStrip: document.querySelector("#summaryStrip"),
@@ -21,6 +23,8 @@ const els = {
   nextBtn: document.querySelector("#nextBtn"),
   revealReasonBtn: document.querySelector("#revealReasonBtn"),
   revealAnswerBtn: document.querySelector("#revealAnswerBtn"),
+  toggleSidebarBtn: document.querySelector("#toggleSidebarBtn"),
+  toggleSolutionBtn: document.querySelector("#toggleSolutionBtn"),
   methodInsight: document.querySelector("#methodInsight"),
   solutionContent: document.querySelector("#solutionContent")
 };
@@ -37,11 +41,15 @@ const filters = {
   search: ""
 };
 
+const layoutState = loadLayoutState();
 const ui = {
   selectedId: null,
   activeTab: "reason",
   revealReason: false,
-  revealAnswer: false
+  revealAnswer: false,
+  sidebarCollapsed: layoutState.sidebarCollapsed,
+  solutionCollapsed: layoutState.solutionCollapsed,
+  methodCollapsed: layoutState.methodCollapsed
 };
 
 let questions = [];
@@ -62,6 +70,65 @@ function loadTestMode() {
 
 function saveTestMode() {
   localStorage.setItem("life-actuarial-practice-testmode", JSON.stringify(testMode));
+}
+
+function loadLayoutState() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(LAYOUT_STORAGE_KEY) || "{}");
+    return {
+      sidebarCollapsed: Boolean(parsed.sidebarCollapsed),
+      solutionCollapsed: Boolean(parsed.solutionCollapsed),
+      methodCollapsed: Boolean(parsed.methodCollapsed)
+    };
+  } catch {
+    return {
+      sidebarCollapsed: false,
+      solutionCollapsed: false,
+      methodCollapsed: false
+    };
+  }
+}
+
+function saveLayoutState() {
+  localStorage.setItem(
+    LAYOUT_STORAGE_KEY,
+    JSON.stringify({
+      sidebarCollapsed: ui.sidebarCollapsed,
+      solutionCollapsed: ui.solutionCollapsed,
+      methodCollapsed: ui.methodCollapsed
+    })
+  );
+}
+
+function toggleLayoutPanel(panel) {
+  if (panel === "sidebar") {
+    ui.sidebarCollapsed = !ui.sidebarCollapsed;
+  } else if (panel === "solution") {
+    ui.solutionCollapsed = !ui.solutionCollapsed;
+  } else if (panel === "method") {
+    ui.methodCollapsed = !ui.methodCollapsed;
+    renderMethodInsight();
+  }
+  saveLayoutState();
+  updateLayoutState();
+}
+
+function updateLayoutState() {
+  els.appShell?.classList.toggle("sidebar-collapsed", ui.sidebarCollapsed);
+  els.appShell?.classList.toggle("solution-collapsed", ui.solutionCollapsed);
+  els.methodInsight?.classList.toggle("is-collapsed", ui.methodCollapsed);
+
+  updatePanelButton(els.toggleSidebarBtn, ui.sidebarCollapsed, "目录");
+  updatePanelButton(els.toggleSolutionBtn, ui.solutionCollapsed, "解析/答案");
+}
+
+function updatePanelButton(button, collapsed, label) {
+  if (!button) return;
+  const action = collapsed ? "展开" : "收起";
+  button.textContent = action;
+  button.title = `${action}${label}`;
+  button.setAttribute("aria-label", `${action}${label}`);
+  button.setAttribute("aria-expanded", String(!collapsed));
 }
 
 function generateShuffledOrder() {
@@ -145,6 +212,15 @@ function bindEvents() {
   els.prevBtn.addEventListener("click", () => moveSelection(-1));
   els.nextBtn.addEventListener("click", () => moveSelection(1));
 
+  els.toggleSidebarBtn?.addEventListener("click", () => toggleLayoutPanel("sidebar"));
+  els.toggleSolutionBtn?.addEventListener("click", () => toggleLayoutPanel("solution"));
+  els.methodInsight?.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+    const button = event.target.closest("[data-method-toggle]");
+    if (!button) return;
+    toggleLayoutPanel("method");
+  });
+
   els.revealReasonBtn.addEventListener("click", () => {
     ui.activeTab = "reason";
     ui.revealReason = true;
@@ -188,6 +264,8 @@ function bindEvents() {
       }
     });
   });
+
+  updateLayoutState();
 }
 
 function normalizeQuestions(items) {
@@ -213,6 +291,7 @@ function renderAll(options = {}) {
   renderStatusActions();
   renderSolution();
   updateSummary();
+  updateLayoutState();
 }
 
 function renderLibrary() {
@@ -456,9 +535,17 @@ function renderStatusActions() {
 
 function renderMethodInsight() {
   if (!els.methodInsight) return;
+  els.methodInsight.classList.toggle("is-collapsed", ui.methodCollapsed);
   const question = getSelectedQuestion();
   if (!question) {
     els.methodInsight.innerHTML = `
+      <div class="method-head">
+        <div>
+          <span class="method-eyebrow">解答总结</span>
+          <h3>通法未加载</h3>
+        </div>
+        <div class="method-actions">${renderMethodToggle()}</div>
+      </div>
       <div class="method-empty">
         <strong>通法未加载</strong>
         <span>选择一道题后查看对应方法。</span>
@@ -470,6 +557,13 @@ function renderMethodInsight() {
   const bundle = getQuestionMethodBundle(question.id);
   if (!bundle) {
     els.methodInsight.innerHTML = `
+      <div class="method-head">
+        <div>
+          <span class="method-eyebrow">解答总结</span>
+          <h3>暂无通法标签</h3>
+        </div>
+        <div class="method-actions">${renderMethodToggle()}</div>
+      </div>
       <div class="method-empty">
         <strong>暂无通法标签</strong>
         <span>这道题还没有匹配到方法卡。</span>
@@ -490,7 +584,10 @@ function renderMethodInsight() {
         <span class="method-eyebrow">${escapeHtml(primary.category || "通性通法")}</span>
         <h3>${escapeHtml(primary.title || "本题通法")}</h3>
       </div>
-      <span class="difficulty-badge">难度 ${escapeHtml(tag.difficulty || "-")}</span>
+      <div class="method-actions">
+        <span class="difficulty-badge">难度 ${escapeHtml(tag.difficulty || "-")}</span>
+        ${renderMethodToggle()}
+      </div>
     </div>
     ${renderMethodPills(tag.topic_tags)}
     ${tag.summary ? `<p class="method-summary">${formatInline(escapeHtml(tag.summary))}</p>` : ""}
@@ -508,7 +605,21 @@ function renderMethodInsight() {
         : ""
     }
   `;
-  typesetMath();
+  if (!ui.methodCollapsed) typesetMath();
+}
+
+function renderMethodToggle() {
+  return `
+    <button
+      type="button"
+      class="method-toggle"
+      data-method-toggle
+      aria-controls="methodInsight"
+      aria-expanded="${String(!ui.methodCollapsed)}"
+    >
+      ${ui.methodCollapsed ? "展开总结" : "收起总结"}
+    </button>
+  `;
 }
 
 function renderMethodPills(items = []) {

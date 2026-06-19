@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>寿险精算刷题</title>
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="./styles.css?v=20250617" />
+    <link rel="stylesheet" href="./styles.css?v=20260619-panels" />
     <script>
       window.MathJax = {
         tex: {
@@ -16,11 +16,11 @@
       };
     </script>
     <script defer src="./method-utils.js?v=20250617"></script>
-    <script defer src="./app.js?v=20250617"></script>
+    <script defer src="./app.js?v=20260619-panels"></script>
     <script async src="./assets/mathjax/tex-svg.js" onload="window.queueMathTypeset?.()"></script>
   </head>
   <body>
-    <div class="app-shell">
+    <div class="app-shell" id="appShell">
       <header class="topbar">
         <div class="brand">
           <div>
@@ -49,7 +49,19 @@
         </div>
       </header>
 
-      <aside class="sidebar">
+      <aside class="sidebar" id="sidebarPane">
+        <div class="panel-head sidebar-head">
+          <span class="panel-title"><span class="panel-title-main">目录</span></span>
+          <button
+            id="toggleSidebarBtn"
+            type="button"
+            class="panel-toggle"
+            aria-controls="sidebarPane"
+            aria-expanded="true"
+          >
+            收起
+          </button>
+        </div>
         <div class="mode-switch" id="modeSwitch" aria-label="刷题模式">
           <button type="button" class="mode-btn active" data-mode="chapter">章节模式</button>
           <button type="button" class="mode-btn" data-mode="test">Test模式</button>
@@ -80,10 +92,21 @@
         </div>
       </main>
 
-      <aside class="solution-pane">
-        <div class="reveal-row" aria-label="解答查看">
-          <button id="revealReasonBtn" type="button" class="reveal-btn" aria-pressed="false">解题思路</button>
-          <button id="revealAnswerBtn" type="button" class="reveal-btn answer" aria-pressed="false">答案</button>
+      <aside class="solution-pane" id="solutionPane">
+        <div class="solution-head">
+          <div class="reveal-row" aria-label="解答查看">
+            <button id="revealReasonBtn" type="button" class="reveal-btn" aria-pressed="false">解题思路</button>
+            <button id="revealAnswerBtn" type="button" class="reveal-btn answer" aria-pressed="false">答案</button>
+          </div>
+          <button
+            id="toggleSolutionBtn"
+            type="button"
+            class="panel-toggle solution-toggle"
+            aria-controls="solutionPane"
+            aria-expanded="true"
+          >
+            收起
+          </button>
         </div>
 
         <article id="solutionContent" class="content-block solution-content"></article>
